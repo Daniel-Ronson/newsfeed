@@ -1,7 +1,33 @@
-﻿@{
-    ViewData["Title"] = "About";
+﻿
+@{
+    ViewData["Title"] = "News";
 }
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
+<h1>News</h1>
 
-<p>Use this area to provide additional information.</p>
+<h2>@ViewData["Message"]</h2>
+
+<h3> Choose which news topic:</h3>
+<p>Hello</p>
+
+<ul>
+    <button onclick="myFunction()">News</button>
+
+    <p id="demo">@ViewData["Title"] + "kjgh"</p>
+
+    <script>
+        function myFunction() {
+            document.getElementById("demo").innerHTML = @ViewData["Title"];
+        }
+    </script>
+
+
+
+
+    <li>Technology</li>
+    <li>Politics</li>
+
+    <li>World</li>
+
+</ul>
+
+
