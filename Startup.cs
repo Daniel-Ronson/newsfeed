@@ -50,6 +50,8 @@ namespace News
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+                app.UseBrowserLink();
+
             }
             else
             {

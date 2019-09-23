@@ -12,26 +12,27 @@ body {
     padding-right: 15px;
 }
 
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
+.news-container {
+    display: flex;
+    flex-direction: column;
 }
 
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
+.news-card {
+    padding-top: 10px;
 }
 
-/* QR code generator */
-#qrCode {
-    margin: 15px;
+.news-body {
+
 }
 
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
+.news-title {
+    font-size: larger;
+}
+
+.news-summary {
+
+}
+
+.news-tag {
+
 }
