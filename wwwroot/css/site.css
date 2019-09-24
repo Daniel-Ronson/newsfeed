@@ -12,27 +12,12 @@ body {
     padding-right: 15px;
 }
 
-.news-container {
-    display: flex;
-    flex-direction: column;
+.tag-btn {
+    margin-bottom: 1em;
+    border-radius: 0.5em;
 }
 
-.news-card {
-    padding-top: 10px;
-}
-
-.news-body {
-
-}
-
-.news-title {
-    font-size: larger;
-}
-
-.news-summary {
-
-}
-
-.news-tag {
-
+.tag-btn-group > .tag-btn > input[type="checkbox"] {
+    clip: rect(0, 0, 0, 0);
+    position: absolute;
 }

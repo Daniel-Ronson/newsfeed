@@ -1,18 +1,26 @@
 ﻿<div class="panel panel-default">
     <div class="row">
         <div class="col-lg-12">
-            <div class="card">
+            <div class="card flex-row">
                 <div class="card-body">
                     <h1 class="panel-title">
                         News Application
                     </h1>
                 </div>
+                <button class="btn btn-outline-dark btn-lg mr-1" type="button" 
+                        data-type="Login"
+                        data-toggle="modal" 
+                        data-target="#login-modal">LOGIN</button>
+                <button class="btn btn-outline-dark btn-lg" type="button" 
+                        data-type="Signup"
+                        data-toggle="modal" 
+                        data-target="#login-modal">SIGN UP</button>
             </div>
         </div>
     </div>
     <br />
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card">
                 <div class="card-header">
                     <h2 class="popover-title">
@@ -20,18 +28,32 @@
                     </h2>
                 </div>
                 <div class="card-body">
-                    <h3>#Technology</h3>
-                    <h3>#Politics</h3>
-                    <h3>#World</h3>
-                    <h3>#Dogs</h3>
-                    <h3>#Trending</h3>
-                    <h3>#Sports</h3>
+                    <div class="tag-btn-group d-flex flex-column" data-toggle="buttons">
+                        <label class="btn btn-outline-dark tag-btn btn-lg">
+                            <input type="checkbox" checked autocomplete="off"> #Technology
+                        </label>
+                        <label class="btn btn-outline-dark tag-btn btn-lg">
+                            <input type="checkbox" checked autocomplete="off"> #Politics
+                        </label>
+                        <label class="btn btn-outline-dark tag-btn btn-lg">
+                            <input type="checkbox" checked autocomplete="off"> #World
+                        </label>
+                        <label class="btn btn-outline-dark tag-btn btn-lg">
+                            <input type="checkbox" checked autocomplete="off"> #Pets
+                        </label>
+                        <label class="btn btn-outline-dark tag-btn btn-lg">
+                            <input type="checkbox" checked autocomplete="off"> #Trending
+                        </label>
+                        <label class="btn btn-outline-dark tag-btn btn-lg">
+                            <input type="checkbox" checked autocomplete="off"> #Sports
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-8 news-container">
+        <div class="col-md-9 d-flex flex-column">
             <h2 class="pt-2">Headlines / Cards</h2>
-            <div class="col-sm-8 d-md-flex flex-column">
+            <div class="col-sm-10 d-md-flex flex-column">
                 <div class="card mb-3">
                     <div class="row no-gutters flex-wrap-reverse">
                         <div class="col-md-8">
@@ -39,7 +61,9 @@
                                 <h5 class="card-title">News Article Title</h5>
                                 <p class="card-subtitle mb-2 text-muted">Publisher</p>
                                 <p class="card-text"> Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum</p>
-                                <div class="news-tag">#YOLO #NICE</div>
+                                <div class="badge badge-primary">#Technology</div>
+                                <div class="badge badge-primary">#World</div>
+                                <div class="badge badge-primary">#Trending</div>
                             </div>
                         </div>
                         <div class="col-md-4 d-flex align-items-center">
@@ -57,7 +81,8 @@
                                 <h5 class="card-title">News Article Title 2</h5>
                                 <p class="card-subtitle mb-2 text-muted">Publisher</p>
                                 <p class="card-text"> Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum</p>
-                                <div class="news-tag">#YOLO #NICE</div>
+                                <div class="badge badge-primary">#Sports</div>
+                                <div class="badge badge-primary">#World</div>
                             </div>
                         </div>
                         <div class="col-md-4 d-flex align-items-center">
@@ -72,3 +97,53 @@
         </div>
     </div>
 </div>
+
+
+<!-- Login modal -->
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="login-modal-title">Login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="user-email" class="col-form-label">Username / email</label>
+                        <input type="text" class="form-control" id="user-email">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password" class="col-form-label">Password</label>
+                        <input type="password" class="form-control" id="login-password">
+                    </div>
+                </form>
+                <form id="signup-form" style="display: none">
+                    <div class="form-group">
+                        <label for="email" class="col-form-label">Email</label>
+                        <input type="text" class="form-control" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="username" class="col-form-label">Username</label>
+                        <input type="text" class="form-control" id="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password" class="col-form-label">Password</label>
+                        <input type="password" class="form-control" id="signup-password">
+                    </div>
+                    <div class="form-group">
+                        <label for="password-check" class="col-form-label">Repeat password</label>
+                        <input type="password" class="form-control" id="password-check">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="modal-button" type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </div>
+    </div>
+</div>
+
