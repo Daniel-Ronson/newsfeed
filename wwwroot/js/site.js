@@ -11,16 +11,16 @@ var modal = $('#login-modal');
 
     var App = window.App;
     var FormHandler = App.FormHandler;
-    var login_form = new FormHandler(LOGIN_FORM_SELECTOR);
-    var signup_form = new FormHandler(SIGNUP_FORM_SELECTOR);
+    //var login_form = new FormHandler(LOGIN_FORM_SELECTOR);
+    //var signup_form = new FormHandler(SIGNUP_FORM_SELECTOR);
 
-    login_form.addSubmitHandler(function (data) {
-        console.log("Login received data: " + data);
-    });
+    //login_form.addSubmitHandler(function (data) {
+    //    console.log("Login received data: " + data.userEmail);
+    //});
 
-    signup_form.addSubmitHandler(function (data) {
-        console.log("Signup received data: " + data);
-    });
+    //signup_form.addSubmitHandler(function (data) {
+    //    console.log("Signup received data: " + data.email);
+    //});
 
 
 })(window);
