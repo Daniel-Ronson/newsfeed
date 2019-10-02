@@ -1,4 +1,4 @@
-﻿@model News.Models.LoginForm
+﻿@model News.Models.LoginRegisterForm
 
 <div class="panel panel-default">
     <div class="row">
@@ -118,34 +118,36 @@
             <div class="modal-body">
                 <form asp-action="Index" asp-controller="Form" method="POST" id="login-form">
                     <div class="form-group">
-                        <label asp-for="userEmail" class="col-form-label"></label>
-                        <input asp-for="userEmail" type="text" class="form-control">
+                        <label asp-for="LoginUserEmail" class="col-form-label"></label>
+                        <input asp-for="LoginUserEmail" type="text" class="form-control" required
+                               pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b">
                     </div>
                     <div class="form-group">
-                        <label asp-for="password" class="col-form-label"></label>
-                        <input asp-for="password" type="password" class="form-control">
+                        <label asp-for="LoginPassword" class="col-form-label"></label>
+                        <input asp-for="LoginPassword" type="password" class="form-control" required>
                     </div>
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary ml-2 btn-lg">Login</button>
                     </div>
                 </form>
-                <form method="POST" id="signup-form" style="display: none">
+                <form asp-action="Index" asp-controller="Form" method="POST" id="signup-form" style="display: none">
                     <div class="form-group">
-                        <label for="email" class="col-form-label">Email</label>
-                        <input type="text" name="email" class="form-control" id="email">
+                        <label asp-for="RegisterEmail" class="col-form-label">Email</label>
+                        <input asp-for="RegisterEmail" type="text" class="form-control" required
+                               pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b">
                     </div>
                     <div class="form-group">
-                        <label for="username" class="col-form-label">Username</label>
-                        <input type="text" name="username" class="form-control" id="username">
+                        <label asp-for="RegisterUsername" class="col-form-label">Username</label>
+                        <input asp-for="RegisterUsername" type="text" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="signup-password" class="col-form-label">Password</label>
-                        <input type="password" name="password" class="form-control" id="signup-password">
+                        <label asp-for="RegisterPassword" class="col-form-label">Password</label>
+                        <input asp-for="RegisterPassword" type="password" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="password-check" class="col-form-label">Repeat password</label>
-                        <input type="password" name="passwordCheck" class="form-control" id="password-check">
+                        <label asp-for="RegisterPasswordCheck" class="col-form-label">Repeat password</label>
+                        <input asp-for="RegisterPasswordCheck" type="password" class="form-control" required>
                     </div>
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Close</button>
