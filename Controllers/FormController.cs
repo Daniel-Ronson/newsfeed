@@ -16,10 +16,31 @@ namespace News.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public IActionResult Index(LoginForm model)
+        public IActionResult Index(LoginRegisterForm model)
         {
-            return Content($"Hello {model.userEmail}");
+            if (model.LoginPassword != null)
+            {
+                return HandleLogin(model);
+            } else
+            {
+                return HandleRegister(model);
+            }
         }
 
+        private IActionResult HandleLogin(LoginRegisterForm model)
+        {
+            return Content($"LoginForm!" +
+                $"{model.LoginUserEmail}" +
+                $"{model.LoginPassword}");
+        }
+
+        private IActionResult HandleRegister(LoginRegisterForm model)
+        {
+            return Content($"RegisterForm!" +
+                $"{model.RegisterEmail}" +
+                $"{model.RegisterUsername}" +
+                $"{model.RegisterPassword}" +
+                $"{model.RegisterPasswordCheck}");
+        }
     }
 }
