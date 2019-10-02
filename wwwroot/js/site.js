@@ -25,6 +25,36 @@ var modal = $('#login-modal');
 
 })(window);
 
+function LoadData() {
+    //$("#tblStudent tbody tr").remove();
+    $.ajax({
+        type: 'POST',
+        url: '@Url.Action("getArticles")',
+        dataType: 'json',
+        data: { id: '' },
+        success: function (data) {
+            var items = '';
+            $.each(data, function (i, item) {
+                var rows = "<tr>"
+                    + "<td class='prtoducttd'>" + item.id + "</td>"
+                    + "<td class='prtoducttd'>" + item.url + "</td>"
+                    //+ "<td class='prtoducttd'>" + item. + "</td>"
+                    + "</tr>";
+                $('#cardView').append(rows);
+            });
+        },
+        error: function (ex) {
+            var r = jQuery.parseJSON(response.responseText);
+            alert("Message: " + r.Message);
+            alert("StackTrace: " + r.StackTrace);
+            alert("ExceptionType: " + r.ExceptionType);
+        }
+    });
+    return false;
+}
+
+LoadData();
+
 $('#login-modal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var recipient = button.data('type');

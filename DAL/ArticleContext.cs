@@ -2,14 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Data.Entity;
+
 
 namespace News.Models
 {
-    public class ArticleContext
+    public class ArticleContext : DbContext
     {
         public string ConnectionString { get; set; }
+
+        public ArticleContext() : base("ConnectString")
+        {
+            this.Configuration.ValidateOnSaveEnabled = false;
+
+        }
 
         public ArticleContext(string connectionString)
         {
@@ -26,7 +32,7 @@ namespace News.Models
 
             using (MySqlConnection con = getConnection())
             {
-                MySqlCommand cmd = new MySqlCommand("ListArticles", con);
+                MySqlCommand cmd = new MySqlCommand("getArticles", con);
                 cmd.CommandType = CommandType.StoredProcedure;
 
 
