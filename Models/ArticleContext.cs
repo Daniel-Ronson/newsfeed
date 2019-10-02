@@ -26,10 +26,9 @@ namespace News.Models
 
             using (MySqlConnection con = getConnection())
             {
-                MySqlCommand cmd = new MySqlCommand("ListArticles", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-
+                string sql = "SELECT * from article";
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+                //cmd.CommandType = CommandType.StoredProcedure;
 
                 con.Open(); //open db connection
 
