@@ -10,12 +10,7 @@ namespace News.Models
     public class ArticleContext : DbContext
     {
         public string ConnectionString { get; set; }
-
-        public ArticleContext() : base("ConnectString")
-        {
-            this.Configuration.ValidateOnSaveEnabled = false;
-
-        }
+        public DbSet<Article> Articles { get; set; }
 
         public ArticleContext(string connectionString)
         {
@@ -26,6 +21,7 @@ namespace News.Models
         {
             return new MySqlConnection(ConnectionString);
         }
+
         public List<Article> ListArticles()
         {
             List<Article> LArticle = new List<Article>();
@@ -34,8 +30,6 @@ namespace News.Models
             {
                 MySqlCommand cmd = new MySqlCommand("getArticles", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-
-
 
                 con.Open(); //open db connection
 

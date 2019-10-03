@@ -7,11 +7,9 @@ using System.Web;
 
 namespace News.Controllers
 {
-    public class ArticlesController : Controller
+    public class ArticleController : Controller
     {
-
         private ArticleContext context;
-
 
         public IActionResult Index()
         {
@@ -23,6 +21,8 @@ namespace News.Controllers
         [HttpPost]
         public JsonResult getArticles(string id)
         {
+            context = HttpContext.RequestServices.GetService(typeof(ArticleContext)) as ArticleContext;
+
             List<Article> articles = new List<Article>();
             articles = context.ListArticles();
             return Json(articles);
