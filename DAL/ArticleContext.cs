@@ -22,6 +22,32 @@ namespace News.Models
             return new MySqlConnection(ConnectionString);
         }
 
+        private List<String> getGenres(int articleId)
+        {
+            List<String> genres = new List<String>();
+
+            using (MySqlConnection con = getConnection())
+            {
+                MySqlCommand cmd = new MySqlCommand("getGenres", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@articleId", articleId);
+                cmd.Parameters["@articleId"].Direction = ParameterDirection.Input;
+
+                con.Open(); //open db connection
+
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                //while loop
+                while (rdr.Read())
+                {
+                    genres.Add(rdr["genre"].ToString());
+                }
+
+                con.Close();
+            }
+            return genres;
+        }
+
         public List<Article> ListArticles()
         {
             List<Article> LArticle = new List<Article>();
@@ -41,10 +67,11 @@ namespace News.Models
                     Article w = new Article();
                     w.ID = Convert.ToInt32(rdr["articleid"]);
                     w.Title = rdr["title"].ToString();
-                    w.Url = rdr["url"].ToString();
+                    w.WebsiteUrl = rdr["websiteUrl"].ToString();
+                    w.PublisherUrl = rdr["publisherUrl"].ToString();
                     w.Date = rdr["date"].ToString();
-                    w.WebsiteId = rdr["websiteid"].ToString();
-                    w.Genre = rdr["genreid"].ToString();
+                    w.WebsiteName = rdr["websiteName"].ToString();
+                    w.Genres = getGenres(w.ID);
 
                     LArticle.Add(w);
                 }

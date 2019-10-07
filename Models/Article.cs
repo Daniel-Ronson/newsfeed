@@ -15,16 +15,19 @@ namespace News.Models
         [Display(Name = "title")]
         public string Title { get; set; }
 
-        [Display(Name = "url")]
-        public string Url { get; set; }
+        [Display(Name = "webUrl")]
+        public string WebsiteUrl { get; set; }
+
+        [Display(Name = "publisherUrl")]
+        public string PublisherUrl { get; set; }
 
         [Display(Name = "date")]
         public string Date { get; set; }
 
         [Display(Name = "websiteName")]
-        public string WebsiteId { get; set; }
+        public string WebsiteName { get; set; }
 
         [Display(Name = "genre")]
-        public string Genre { get; set; }
+        public List<String> Genres { get; set; }
     }
 }
