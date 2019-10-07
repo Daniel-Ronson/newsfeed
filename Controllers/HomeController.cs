@@ -10,16 +10,13 @@ namespace News.Controllers
 {
     public class HomeController : Controller
     {
-
         public IActionResult Index()
         {
+            ArticleContext context = HttpContext.RequestServices.GetService(typeof(News.Models.ArticleContext)) as ArticleContext;
+            List<Article> articleList = new List<Article>();
+            articleList = context.ListArticles();
+            ViewData["articles"] = context.ListArticles();
             return View();
-        }
-
-        [HttpPost]
-        public IActionResult getArticles()
-        {
-            return RedirectToAction("getArticles", "Article");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

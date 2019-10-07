@@ -10,7 +10,7 @@ namespace News.Models
     public class Article
     {
         [Display(Name = "id")]
-        public int ID { get; set; }
+        public string ID { get; set; }
 
         [Display(Name = "title")]
         public string Title { get; set; }
@@ -29,5 +29,10 @@ namespace News.Models
 
         [Display(Name = "genre")]
         public List<String> Genres { get; set; }
+
+        [Display(Name = "description")]
+        public string Description { get; set; }
+
+
     }
 }

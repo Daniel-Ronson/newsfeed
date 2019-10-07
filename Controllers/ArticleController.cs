@@ -9,25 +9,20 @@ namespace News.Controllers
 {
     public class ArticleController : Controller
     {
-        private ArticleContext context;
+            
 
-        public IActionResult Index()
+            public IActionResult Index()
+            {
+                ArticleContext context = HttpContext.RequestServices.GetService(typeof(News.Models.ArticleContext)) as ArticleContext;
+                return View(context.ListArticles());
+            }
+
+        public List<Article> getArticles()
         {
-            context = HttpContext.RequestServices.GetService(typeof(ArticleContext)) as ArticleContext;
+            ArticleContext context = HttpContext.RequestServices.GetService(typeof(News.Models.ArticleContext)) as ArticleContext;
+            return context.ListArticles();
 
-            return View(context.ListArticles());
-        }
-           
-        [HttpPost]
-        public JsonResult getArticles(string id)
-        {
-            context = HttpContext.RequestServices.GetService(typeof(ArticleContext)) as ArticleContext;
-
-            List<Article> articles = new List<Article>();
-            articles = context.ListArticles();
-            return Json(articles);
         }
 
-        
     }
 }
