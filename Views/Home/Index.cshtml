@@ -9,6 +9,7 @@
                         News Application
                     </h1>
                 </div>
+
                 <button class="btn btn-outline-dark btn-lg mr-1" type="button"
                         data-type="Login"
                         data-toggle="modal"
@@ -46,9 +47,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-9 d-flex flex-column">
-            <h2 class="pt-2">Headlines / Cards</h2>
-            <div class="col-sm-10 d-md-flex flex-column">
+        <div class="col-md-9 d-flex flex-column overflow-auto align-items-center">
+            <div id="cardView" class="col-sm-12 d-md-flex flex-column" style="max-height: 40em;">
                 
                 @foreach (var article in ViewData["articles"] as List<Article>)
                 {
@@ -57,11 +57,12 @@
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title">@article.Title</h5>
-                                <p class="card-subtitle mb-2 text-muted">Publisher</p>
+                                <p class="card-subtitle mb-2 text-muted">@article.WebsiteName</p>
                                 <p class="card-text">@article.Description</p>
-                                <div class="badge badge-primary">#Technology</div>
-                                <div class="badge badge-primary">#World</div>
-                                <div class="badge badge-primary">#Trending</div>
+                                @foreach (var genre in article.Genres as List<String>)
+                                {
+                                <div class='badge badge-primary'>#@genre </div>
+                                }
                             </div>
                         </div>
                         <div class="col-md-4 d-flex align-items-center">
@@ -69,7 +70,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <small class="text-muted">@article.Date</small>
+                        <small class="text-muted">Published : @article.Date</small>
                     </div>
                 </div>
                 }
