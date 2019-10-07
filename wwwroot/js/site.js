@@ -33,36 +33,53 @@ function LoadData() {
         dataType: 'json',
         data: { id: '' },
         success: function (data) {
-            var items = '';
             $.each(data, function (i, item) {
-                var card = "<div class='card mb-3'>" +
-                    "<div class='row no-gutters flex-wrap-reverse'>" +
-                        "<div class='col-md-8'>" +
-                            " <div class='card-body'> " +
-                                "<h5 class='card-title'>" + item.title + "</h5> " +
-                                "<p class='card-subtitle mb-2 text-muted'>" + item.websiteName + "</p> " +
-                                "<p class='card-text'> Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum</p> " +
-                                "<div class='badge badge-primary'>#Technology</div> " +
-                                "<div class='badge badge-primary'>#World</div>" +
-                                "<div class='badge badge-primary'>#Trending</div>" +
-                            "</div>" +
-                        "</div>" +
-                        "<div class='col-md-4 d-flex align-items-center'>" +
-                            "<img src='images/wireframe.png' class='card-img pr-1' />" +
-                        "</div>" +
-                    "</div >" +
-                    "<div class='card-footer'>" +
-                    "<small class='text-muted'>Published : " + item.date.substr(0, 9) + " </small>" +
-                    "</div>" +
-                "</div >"
+                var $card = $("<div></div>", {
+                    "class": "card mb-3"
+                })
 
+                var $row = $('<div></div>', {
+                    "class": "row no-gutters flex-wrap-reverse"
+                })
 
-                var rows = "<tr>"
-                    + "<td class='prtoducttd'>" + item.id + "</td>"
-                    + "<td class='prtoducttd'>" + item.url + "</td>"
-                    //+ "<td class='prtoducttd'>" + item. + "</td>"
-                    + "</tr>";
-                $('#cardView').append(card);
+                var $col8 = $('<div></div>', {
+                    "class": "col-md-8"
+                })
+
+                var $cardBody = $('<div></div>', {
+                    "class": "card-body"
+                })
+
+                $cardBody.append("<h5 class='card-title'>" + item.title + "</h5> ");
+                $cardBody.append("<p class='card-subtitle mb-2 text-muted'>" + item.websiteName + "</p>");
+                $cardBody.append("<p class='card-text'> Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum</p> ");
+
+                item.genres.forEach(function (genre) {
+                    $cardBody.append("<div class='badge badge-primary'>#" + genre + "</div> ")
+                });
+
+                var $col4 = $('<div></div>', {
+                    "class": "col-md-4 d-flex align-items-center"
+                })
+
+                var $img = $('<img></img>', {
+                    "class": "card-img pr-1",
+                    "src": 'images/wireframe.png'
+                })
+
+                var $footer = $("<div></div>", {
+                    "class": "card-footer"
+                })
+
+                $footer.append("<small class='text-muted'>Published : " + item.date.substr(0, 9) + " </small>")
+
+                $col8.append($cardBody);
+                $col4.append($img);
+                $row.append($col8);
+                $row.append($col4);
+                $card.append($row);
+                $card.append($footer);
+                $('#cardView').append($card);
             });
         },
         error: function (ex) {
