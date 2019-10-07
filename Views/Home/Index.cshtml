@@ -35,25 +35,14 @@
                 </div>
                 <div class="card-body">
                     <div class="tag-btn-group d-flex flex-column" data-toggle="buttons">
-                        <label class="btn btn-outline-dark tag-btn btn-lg">
-                            <input type="checkbox" checked autocomplete="off"> #Technology
-                        </label>
-                        <label class="btn btn-outline-dark tag-btn btn-lg">
-                            <input type="checkbox" checked autocomplete="off"> #Politics
-                        </label>
-                        <label class="btn btn-outline-dark tag-btn btn-lg">
-                            <input type="checkbox" checked autocomplete="off"> #World
-                        </label>
-                        <label class="btn btn-outline-dark tag-btn btn-lg">
-                            <input type="checkbox" checked autocomplete="off"> #Pets
-                        </label>
-                        <label class="btn btn-outline-dark tag-btn btn-lg">
-                            <input type="checkbox" checked autocomplete="off"> #Trending
-                        </label>
-                        <label class="btn btn-outline-dark tag-btn btn-lg">
-                            <input type="checkbox" checked autocomplete="off"> #Sports
-                        </label>
-                    </div>
+                        @foreach (var item in ViewData["genres"] as List<Genre>)
+                        {
+                            <label class="btn btn-outline-dark tag-btn btn-lg">
+                                <input type="checkbox" checked autocomplete="off"> #@item.genre
+                            </label>
+                        }
+                 
+                        </div>
                 </div>
             </div>
         </div>

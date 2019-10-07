@@ -12,19 +12,18 @@ namespace News.Controllers
     {
         public IActionResult Index()
         {
-            Genre MD = new Genre();
-
-            
-            GenreContext context = HttpContext.RequestServices.GetService(typeof(News.Models.GenreContext)) as GenreContext;
-            return View(MD, context.ListGenre());
-        }
-
-        [HttpPost]
-        public IActionResult Index(GenreContext model)
-        {
-
+                  
             GenreContext context = HttpContext.RequestServices.GetService(typeof(News.Models.GenreContext)) as GenreContext;
             return View(context.ListGenres());
         }
+
+        public List<Genre> getGenres()
+        {
+            GenreContext context = HttpContext.RequestServices.GetService(typeof(News.Models.GenreContext)) as GenreContext;
+            return context.ListGenres();
+
+        }
+
+
     }
 }

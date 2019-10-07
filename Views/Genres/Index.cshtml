@@ -10,43 +10,37 @@
     <a asp-action="Create">Create New</a>
 </p>
 
-<!--
+
+
+
+
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-              @Html.DisplayNameFor(model => model.genreID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.genre)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.genreID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.genre)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <div class="card mb-3">
+                <div class="row no-gutters flex-wrap-reverse">
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.genre)</h5>
+                            <p class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => item.genreID)</p>
+                            <p class="card-text"> Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum</p>
+                            <div class="badge badge-primary">#Technology</div>
+                            <div class="badge badge-primary">#World</div>s
+                            <div class="badge badge-primary">#Trending</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex align-items-center">
+                        <img src="~/images/wireframe.png" class="card-img pr-1" />
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">@Html.DisplayNameFor(model => model.genre)</small>
+                </div>
+            </div>
+
+   
+        }
     </tbody>
 </table>
-    -->
-@var item;
-<tr>
-    @Html.DisplayFor(modelItem => item.genreID)
-
-    @Html.DropDownListFor(modelItem => item.genre, new SelectList(Model.Genre, "GenreID", "GenreName"), "Select")
-
-</tr>
-
+ 

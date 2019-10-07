@@ -12,10 +12,13 @@ namespace News.Controllers
     {
         public IActionResult Index()
         {
-            ArticleContext context = HttpContext.RequestServices.GetService(typeof(News.Models.ArticleContext)) as ArticleContext;
+            ArticleContext articleContext = HttpContext.RequestServices.GetService(typeof(News.Models.ArticleContext)) as ArticleContext;
             List<Article> articleList = new List<Article>();
-            articleList = context.ListArticles();
-            ViewData["articles"] = context.ListArticles();
+            articleList = articleContext.ListArticles();
+            ViewData["articles"] = articleContext.ListArticles();
+
+            GenreContext genreContext = HttpContext.RequestServices.GetService(typeof(News.Models.GenreContext)) as GenreContext;
+            ViewData["genres"] = genreContext.ListGenres();
             return View();
         }
 
