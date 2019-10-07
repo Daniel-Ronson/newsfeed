@@ -27,23 +27,22 @@ namespace News.Models
 
             using (MySqlConnection conn = getConnection())
             {
-
-
                 string sql = "SELECT * from genre";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 conn.Open();
 
                 MySqlDataReader reader = cmd.ExecuteReader();
+
                 while (reader.Read())
-                    {
-                        Genre g = new Genre();
-                       g.genreID = Convert.ToInt32(reader["genreid"]);
-                       g.genre = reader["genre"].ToString();
+                {
+                    Genre g = new Genre();
+                    g.genreID = Convert.ToInt32(reader["genreid"]);
+                    g.genre = reader["genre"].ToString();
 
 
-                        GenreList.Add(g);
-                    }
-            
+                    GenreList.Add(g);
+                }
+
                 conn.Close();
             }
             return GenreList;

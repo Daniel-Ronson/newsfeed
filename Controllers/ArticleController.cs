@@ -18,7 +18,8 @@ namespace News.Controllers
                 return View(context.ListArticles());
             }
 
+  
 
-        
+
     }
 }

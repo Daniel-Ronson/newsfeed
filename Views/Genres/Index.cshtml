@@ -9,11 +9,13 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<!--
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.genreID)
+              @Html.DisplayNameFor(model => model.genreID)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.genre)
@@ -39,3 +41,12 @@
 }
     </tbody>
 </table>
+    -->
+@var item;
+<tr>
+    @Html.DisplayFor(modelItem => item.genreID)
+
+    @Html.DropDownListFor(modelItem => item.genre, new SelectList(Model.Genre, "GenreID", "GenreName"), "Select")
+
+</tr>
+
