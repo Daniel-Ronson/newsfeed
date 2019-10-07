@@ -1,4 +1,4 @@
-﻿@model News.Models.LoginForm
+﻿@model News.Models.LoginRegisterForm
 
 <div class="panel panel-default">
     <div class="row">
@@ -60,13 +60,16 @@
         <div class="col-md-9 d-flex flex-column">
             <h2 class="pt-2">Headlines / Cards</h2>
             <div class="col-sm-10 d-md-flex flex-column">
+                
+                @foreach (var article in ViewData["articles"] as List<Article>)
+                {
                 <div class="card mb-3">
                     <div class="row no-gutters flex-wrap-reverse">
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title">News Article Title</h5>
+                                <h5 class="card-title">@article.Title</h5>
                                 <p class="card-subtitle mb-2 text-muted">Publisher</p>
-                                <p class="card-text"> Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum</p>
+                                <p class="card-text">@article.Description</p>
                                 <div class="badge badge-primary">#Technology</div>
                                 <div class="badge badge-primary">#World</div>
                                 <div class="badge badge-primary">#Trending</div>
@@ -77,28 +80,11 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <small class="text-muted">Published : 24/7/2019</small>
+                        <small class="text-muted">@article.Date</small>
                     </div>
                 </div>
-                <div class="card mb-3">
-                    <div class="row no-gutters flex-wrap-reverse">
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">News Article Title 2</h5>
-                                <p class="card-subtitle mb-2 text-muted">Publisher</p>
-                                <p class="card-text"> Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum</p>
-                                <div class="badge badge-primary">#Sports</div>
-                                <div class="badge badge-primary">#World</div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 d-flex align-items-center">
-                            <img src="~/images/google_news.png" class="card-img pr-1" />
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Published : 24/7/2019</small>
-                    </div>
-                </div>
+                }
+
             </div>
         </div>
     </div>
@@ -118,34 +104,36 @@
             <div class="modal-body">
                 <form asp-action="Index" asp-controller="Form" method="POST" id="login-form">
                     <div class="form-group">
-                        <label asp-for="userEmail" class="col-form-label"></label>
-                        <input asp-for="userEmail" type="text" class="form-control">
+                        <label asp-for="LoginUserEmail" class="col-form-label"></label>
+                        <input asp-for="LoginUserEmail" type="text" class="form-control" required
+                               pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b">
                     </div>
                     <div class="form-group">
-                        <label asp-for="password" class="col-form-label"></label>
-                        <input asp-for="password" type="password" class="form-control">
+                        <label asp-for="LoginPassword" class="col-form-label"></label>
+                        <input asp-for="LoginPassword" type="password" class="form-control" required>
                     </div>
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary ml-2 btn-lg">Login</button>
                     </div>
                 </form>
-                <form method="POST" id="signup-form" style="display: none">
+                <form asp-action="Index" asp-controller="Form" method="POST" id="signup-form" style="display: none">
                     <div class="form-group">
-                        <label for="email" class="col-form-label">Email</label>
-                        <input type="text" name="email" class="form-control" id="email">
+                        <label asp-for="RegisterEmail" class="col-form-label">Email</label>
+                        <input asp-for="RegisterEmail" type="text" class="form-control" required
+                               pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b">
                     </div>
                     <div class="form-group">
-                        <label for="username" class="col-form-label">Username</label>
-                        <input type="text" name="username" class="form-control" id="username">
+                        <label asp-for="RegisterUsername" class="col-form-label">Username</label>
+                        <input asp-for="RegisterUsername" type="text" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="signup-password" class="col-form-label">Password</label>
-                        <input type="password" name="password" class="form-control" id="signup-password">
+                        <label asp-for="RegisterPassword" class="col-form-label">Password</label>
+                        <input asp-for="RegisterPassword" type="password" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="password-check" class="col-form-label">Repeat password</label>
-                        <input type="password" name="passwordCheck" class="form-control" id="password-check">
+                        <label asp-for="RegisterPasswordCheck" class="col-form-label">Repeat password</label>
+                        <input asp-for="RegisterPasswordCheck" type="password" class="form-control" required>
                     </div>
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Close</button>

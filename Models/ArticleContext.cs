@@ -26,9 +26,11 @@ namespace News.Models
 
             using (MySqlConnection con = getConnection())
             {
-                string sql = "SELECT * from article";
-                MySqlCommand cmd = new MySqlCommand(sql, con);
-                //cmd.CommandType = CommandType.StoredProcedure;
+               // string sql;
+                MySqlCommand cmd = new MySqlCommand("ListArticles", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+
 
                 con.Open(); //open db connection
 
@@ -38,12 +40,14 @@ namespace News.Models
                 while (rdr.Read())
                 {
                     Article w = new Article();
-                    w.ID = Convert.ToInt32(rdr["articleid"]);
+                    w.ID = rdr["articleid"].ToString();
+                    //   w.ID = Convert.ToInt32(rdr["articleid"]);
                     w.Title = rdr["title"].ToString();
                     w.Url = rdr["url"].ToString();
                     w.Date = rdr["date"].ToString();
                     w.WebsiteId = rdr["websiteid"].ToString();
                     w.Genre = rdr["genreid"].ToString();
+                    w.Description = rdr["description"].ToString();
 
                     LArticle.Add(w);
                 }
