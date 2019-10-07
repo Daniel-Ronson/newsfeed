@@ -9,13 +9,11 @@ namespace News.Controllers
 {
     public class ArticleController : Controller
     {
-            
-
-            public IActionResult Index()
-            {
-                ArticleContext context = HttpContext.RequestServices.GetService(typeof(News.Models.ArticleContext)) as ArticleContext;
-                return View(context.ListArticles());
-            }
+        public IActionResult Index()
+        {
+            ArticleContext context = HttpContext.RequestServices.GetService(typeof(News.Models.ArticleContext)) as ArticleContext;
+            return View(context.ListArticles());
+        }
 
         public List<Article> getArticles()
         {

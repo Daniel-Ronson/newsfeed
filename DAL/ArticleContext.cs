@@ -22,7 +22,7 @@ namespace News.Models
             return new MySqlConnection(ConnectionString);
         }
 
-        private List<String> getGenres(string articleId)
+        private List<String> getGenres(int articleId)
         {
             List<String> genres = new List<String>();
 
@@ -65,7 +65,7 @@ namespace News.Models
                 while (rdr.Read())
                 {
                     Article w = new Article();
-                    w.ID = rdr["articleid"].ToString();
+                    w.ID = Convert.ToInt32(rdr["articleid"]);
                     w.Title = rdr["title"].ToString();
                     w.WebsiteUrl = rdr["websiteUrl"].ToString();
                     w.PublisherUrl = rdr["publisherUrl"].ToString();

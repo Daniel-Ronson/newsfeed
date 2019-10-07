@@ -10,7 +10,7 @@ namespace News.Models
     public class Article
     {
         [Display(Name = "id")]
-        public string ID { get; set; }
+        public int ID { get; set; }
 
         [Display(Name = "title")]
         public string Title { get; set; }
