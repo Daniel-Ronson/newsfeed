@@ -38,9 +38,9 @@
                     <div class="tag-btn-group d-flex flex-column" data-toggle="buttons">
                         @foreach (var item in ViewData["genres"] as List<Genre>)
                         {
-                            <label class="btn btn-outline-dark tag-btn btn-lg">
-                                <input type="checkbox" checked autocomplete="off"> #@item.genre
-                            </label>
+                        <label class="btn btn-outline-dark tag-btn btn-lg">
+                            <checkbox id="@item.genre" checked autocomplete="off" data-type="genre">#@item.genre</checkbox>
+                        </label>
                         }
                  
                         </div>
@@ -134,4 +134,3 @@
         </div>
     </div>
 </div>
-

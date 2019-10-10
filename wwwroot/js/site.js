@@ -10,6 +10,20 @@ var modal = $('#login-modal');
     var App = window.App;
 })(window);
 
+$(document).ready(function () {
+
+
+    var genres = $('label');
+    genres.click(function (event) {
+        checkboxClick(event);
+    });
+
+})
+
+var checkboxClick = function (event) {
+    console.log(event.currentTarget.children[0].id);
+}
+
 
 $('#login-modal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
