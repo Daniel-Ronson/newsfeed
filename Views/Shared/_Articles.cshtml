@@ -1,50 +1,24 @@
-﻿@model IEnumerable<News.Models.Article>
-
-
-@{
-    ViewData["Title"] = "Index";
-
-}
-
-<div class="card mb-3">
-    <div class="row no-gutters flex-wrap-reverse">
-        <div class="col-md-8">
-            <div class="card-body">
-                <h5 class="card-title">Title</h5>
-                <p class="card-subtitle mb-2 text-muted">Publisher</p>
-                <p class="card-text"> Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum</p>
-                <div class="badge badge-primary">#Technology</div>
-                <div class="badge badge-primary">#World</div>s
-                <div class="badge badge-primary">#Trending</div>
-            </div>
-        </div>
-        <div class="col-md-4 d-flex align-items-center">
-            <img src="~/images/wireframe.png" class="card-img pr-1" />
-        </div>
-    </div>
-    <div class="card-footer">
-        <small class="text-muted">@Html.DisplayNameFor(model => model.Date)</small>
-    </div>
-</div>
-
-<!--
+﻿@foreach (var article in ViewData["articles"] as List<Article>)
+{
     <div class="card mb-3">
         <div class="row no-gutters flex-wrap-reverse">
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title">News Article Title 2</h5>
-                    <p class="card-subtitle mb-2 text-muted">Publisher</p>
-                    <p class="card-text"> Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum</p>
-                    <div class="badge badge-primary">#Sports</div>
-                    <div class="badge badge-primary">#World</div>
+                    <h5 class="card-title">@article.Title</h5>
+                    <p class="card-subtitle mb-2 text-muted">@article.WebsiteName</p>
+                    <p class="card-text">@article.Description</p>
+                    @foreach (var genre in article.Genres as List<String>)
+                    {
+                        <div class='badge badge-primary'>#@genre </div>
+                    }
                 </div>
             </div>
             <div class="col-md-4 d-flex align-items-center">
-                <img src="~/images/google_news.png" class="card-img pr-1" />
+                <img src="~/images/wireframe.png" class="card-img pr-1" />
             </div>
         </div>
         <div class="card-footer">
-            <small class="text-muted">Published : 24/7/2019</small>
+            <small class="text-muted">Published : @article.Date</small>
         </div>
     </div>
-    -->
+}

@@ -11,8 +11,6 @@ var modal = $('#login-modal');
 })(window);
 
 $(document).ready(function () {
-
-
     var genres = $('label');
     genres.click(function (event) {
         checkboxClick(event);
@@ -21,6 +19,15 @@ $(document).ready(function () {
 })
 
 var checkboxClick = function (event) {
+    var genre = event.currentTarget.children[0].id;
+    $.ajax({
+        url: 'filter/addGenre',
+        data: { genre: genre },
+        success: function (data) {
+            $('#cardView').empty();
+            $('#cardView').append(data);
+        }
+    });
     console.log(event.currentTarget.children[0].id);
 }
 
