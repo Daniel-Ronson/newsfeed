@@ -10,7 +10,7 @@ namespace News.Controllers
 {
     public class FilterController : Controller
     {
-        private List<String> genres = new List<String>();
+        private static List<String> genres = new List<String>();
         
         public IActionResult addGenre(string genre)
         {
@@ -31,7 +31,10 @@ namespace News.Controllers
             ArticleContext context = HttpContext.RequestServices.GetService(typeof(News.Models.ArticleContext)) as ArticleContext;
             var articles = context.ListArticles();
             
-            articles = articles.Where(a => genres.Except(a.Genres).Count() < genres.Count()).ToList();
+            if (genres.Count() != 0)
+            {
+                articles = articles.Where(a => genres.Except(a.Genres).Count() < genres.Count()).ToList();
+            }
 
             ViewData["articles"] = articles;
 
