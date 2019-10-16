@@ -11,11 +11,12 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
 
+    <link rel="stylesheet" href="~/css/spin.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <!-- Visual Studio Browser Link -->
     @*<script type="application/json" id="__browserLink_initializationData">
-        {"requestId":"a717d5a07c1741949a7cefd6fa2bad08","requestMappingFromServer":false}
-    </script>*@
+            {"requestId":"a717d5a07c1741949a7cefd6fa2bad08","requestMappingFromServer":false}
+        </script>*@
     @*<script type="text/javascript" src="http://localhost:54139/b6e36e429d034f578ebccd6a79bf19bf/browserLink" async="async"></script>*@
 
     <!-- End Browser Link -->
@@ -28,8 +29,6 @@
 </head>
 
 <body>
-    <partial name="_CookieConsentPartial" />
-
     <div class="container-fluid">
         @RenderBody()
         <hr />
@@ -49,10 +48,8 @@
             crossorigin="anonymous">
     </script>
 
-    <script src="~/js/checklist.js"></script>
-    <script src="~/js/formhandler.js"></script>
+    <script src="~/js/spin.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
 
 </body>
 </html>
