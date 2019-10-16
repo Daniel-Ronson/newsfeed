@@ -15,7 +15,8 @@ namespace News.Controllers
             ArticleContext articleContext = HttpContext.RequestServices.GetService(typeof(News.Models.ArticleContext)) as ArticleContext;
             List<Article> articleList = new List<Article>();
             articleList = articleContext.ListArticles();
-            ViewData["articles"] = articleContext.ListArticles();
+
+            ViewData["articles"] = articleList;
 
             GenreContext genreContext = HttpContext.RequestServices.GetService(typeof(News.Models.GenreContext)) as GenreContext;
             ViewData["genres"] = genreContext.ListGenres();
