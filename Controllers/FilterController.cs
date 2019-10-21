@@ -29,7 +29,9 @@ namespace News.Controllers
         public IActionResult getFilteredArticles()
         {
             ArticleContext context = HttpContext.RequestServices.GetService(typeof(News.Models.ArticleContext)) as ArticleContext;
+
             var articles = context.ListArticles().Item1;
+
             
             if (genres.Count() != 0)
             {

@@ -1,34 +1,18 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-
-var modal = $('#login-modal');
+﻿var modal = $('#login-modal');
 (function (window) {
     "use strict";
-    var LOGIN_FORM_SELECTOR = "[id=\"login-form\"]";
-    var SIGNUP_FORM_SELECTOR = "[id=\"signup-form\"]";
 
     var App = window.App;
-    var FormHandler = App.FormHandler;
-    //var login_form = new FormHandler(LOGIN_FORM_SELECTOR);
-    //var signup_form = new FormHandler(SIGNUP_FORM_SELECTOR);
+})(window);
 
-<<<<<<< Updated upstream
-    //login_form.addSubmitHandler(function (data) {
-    //    console.log("Login received data: " + data.userEmail);
-    //});
-
-    //signup_form.addSubmitHandler(function (data) {
-    //    console.log("Signup received data: " + data.email);
-    //});
-=======
 $(document).ready(function () {
     var genres = $('label');
     genres.click(function (event) {
         checkboxClick(event);
     });
+
 })
+
 
 var checkboxClick = function (event) {
     var target = event.currentTarget
@@ -58,7 +42,6 @@ var checkboxClick = function (event) {
         });
     }
 }
->>>>>>> Stashed changes
 
 $('img').bind('click', function () {
     if ($(this).attr('id') == 'CNN') {
@@ -83,7 +66,7 @@ $('img').bind('click', function () {
     }
 });
 
-})(window);
+
 
 $('#login-modal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);

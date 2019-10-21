@@ -48,18 +48,19 @@ namespace News.Models
             return genres;
         }
 
+
         public Tuple<List<Article>,List<string>> ListArticles(int websiteId=1)
         {
             
             List<Article> LArticle = new List<Article>();
             List<string> genreids = new List<string>();
-
             using (MySqlConnection con = getConnection())
             {
                 MySqlCommand cmd = new MySqlCommand("getArticles", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@websiteId", websiteId);
                 cmd.Parameters["@websiteId"].Direction = ParameterDirection.Input;
+
                 con.Open(); //open db connection
 
                 MySqlDataReader rdr = cmd.ExecuteReader();
@@ -73,7 +74,7 @@ namespace News.Models
                     w.WebsiteUrl = rdr["websiteUrl"].ToString();
                     w.PublisherUrl = rdr["publisherUrl"].ToString();
                     w.Date = rdr["date"].ToString();
-                    w.WebsiteName = rdr["websitename"].ToString();
+                    w.WebsiteName = rdr["websiteName"].ToString();
                     w.Genres = getGenres(w.ID);
                     w.Description = rdr["description"].ToString();
 
@@ -88,6 +89,7 @@ namespace News.Models
                 con.Close();
             }
             return Tuple.Create(LArticle,genreids);
+
         }
     }
 }
