@@ -13,6 +13,7 @@ $(document).ready(function () {
 
 })
 
+
 var checkboxClick = function (event) {
     var target = event.currentTarget
     var genre = target.children[0].id;
@@ -41,6 +42,30 @@ var checkboxClick = function (event) {
         });
     }
 }
+
+$('img').bind('click', function () {
+    if ($(this).attr('id') == 'CNN') {
+        var id = 1;
+        $.ajax({
+            url: '/Home/Index',
+            data: { data: id },
+            success: function (data) {
+                alert('success CNN');
+            }
+        });
+    }
+    if ($(this).attr('id') == 'BBC') {
+        var id = 3;
+        $.ajax({
+            url: '/Home/Index',
+            data: { id : id },
+            success: function (data) {
+                 alert('success BBC');
+            }
+        });
+    }
+});
+
 
 
 $('#login-modal').on('show.bs.modal', function (event) {

@@ -10,16 +10,17 @@ namespace News.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(int websiteid=1)
         {
-            ArticleContext articleContext = HttpContext.RequestServices.GetService(typeof(News.Models.ArticleContext)) as ArticleContext;
-            List<Article> articleList = new List<Article>();
-            articleList = articleContext.ListArticles();
 
-            ViewData["articles"] = articleList;
+            ArticleContext articleContext = HttpContext.RequestServices.GetService(typeof(News.Models.ArticleContext)) as ArticleContext;
+            var articleList = articleContext.ListArticles(websiteid);
+            var genreListforWebsite = articleList.Item2;
+            ViewData["articles"] = articleList.Item1;
 
             GenreContext genreContext = HttpContext.RequestServices.GetService(typeof(News.Models.GenreContext)) as GenreContext;
-            ViewData["genres"] = genreContext.ListGenres();
+            ViewData["genres"] = genreContext.ListGenres(genreListforWebsite);
+
             return View();
         }
 

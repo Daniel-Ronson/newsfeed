@@ -48,14 +48,18 @@ namespace News.Models
             return genres;
         }
 
-        public List<Article> ListArticles()
-        {
-            List<Article> LArticle = new List<Article>();
 
+        public Tuple<List<Article>,List<string>> ListArticles(int websiteId=1)
+        {
+            
+            List<Article> LArticle = new List<Article>();
+            List<string> genreids = new List<string>();
             using (MySqlConnection con = getConnection())
             {
                 MySqlCommand cmd = new MySqlCommand("getArticles", con);
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@websiteId", websiteId);
+                cmd.Parameters["@websiteId"].Direction = ParameterDirection.Input;
 
                 con.Open(); //open db connection
 
@@ -75,11 +79,17 @@ namespace News.Models
                     w.Description = rdr["description"].ToString();
 
                     LArticle.Add(w);
+
+                    //(genres in CNN...) keep track of the genres that are in the entire website 
+                    if (!genreids.Contains(w.Genres[0])) {
+                        genreids.Add(w.Genres[0]);
+                    }                    
                 }
 
                 con.Close();
             }
-            return LArticle;
+            return Tuple.Create(LArticle,genreids);
+
         }
     }
 }
