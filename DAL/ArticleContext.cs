@@ -49,7 +49,7 @@ namespace News.Models
         }
 
 
-        public Tuple<List<Article>,List<string>> ListArticles(int websiteId=1)
+        public Tuple<List<Article>,List<string>> ListArticles(int websiteId=1) 
         {
             
             List<Article> LArticle = new List<Article>();
@@ -90,6 +90,21 @@ namespace News.Models
             }
             return Tuple.Create(LArticle,genreids);
 
+        }
+
+        public Boolean checkConnection()
+        {
+            MySqlConnection con = getConnection();
+            try
+            {
+                con.Open();
+                con.Close();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

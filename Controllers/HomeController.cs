@@ -12,8 +12,13 @@ namespace News.Controllers
     {
         public IActionResult Index(int websiteid=1)
         {
-
             ArticleContext articleContext = HttpContext.RequestServices.GetService(typeof(News.Models.ArticleContext)) as ArticleContext;
+
+            if (!articleContext.checkConnection())
+            {
+                return Content("Could not establish connection to the database.");
+            }
+
             var articleList = articleContext.ListArticles(websiteid);
             var genreListforWebsite = articleList.Item2;
             ViewData["articles"] = articleList.Item1;
