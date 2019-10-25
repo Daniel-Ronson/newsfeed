@@ -48,8 +48,8 @@ namespace News.Models
             return genres;
         }
 
-
-        public Tuple<List<Article>,List<string>> ListArticles(int websiteId=1)
+        
+        public List<Article> ListArticles(int websiteId=3)
         {
             
             List<Article> LArticle = new List<Article>();
@@ -79,16 +79,12 @@ namespace News.Models
                     w.Description = rdr["description"].ToString();
 
                     LArticle.Add(w);
-
-                    //(genres in CNN...) keep track of the genres that are in the entire website 
-                    if (!genreids.Contains(w.Genres[0])) {
-                        genreids.Add(w.Genres[0]);
-                    }                    
+                  
                 }
 
                 con.Close();
             }
-            return Tuple.Create(LArticle,genreids);
+            return LArticle;
 
         }
     }

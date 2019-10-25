@@ -30,7 +30,7 @@ namespace News.Controllers
         {
             ArticleContext context = HttpContext.RequestServices.GetService(typeof(News.Models.ArticleContext)) as ArticleContext;
 
-            var articles = context.ListArticles().Item1;
+            var articles = context.ListArticles();
 
             
             if (genres.Count() != 0)

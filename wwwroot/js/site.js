@@ -47,21 +47,16 @@ $('img').bind('click', function () {
     if ($(this).attr('id') == 'CNN') {
         var id = 1;
         $.ajax({
-            url: '/Home/Index',
-            data: { data: id },
-            success: function (data) {
-                alert('success CNN');
-            }
+            type: 'GET',
+            url: 'Website/getWebsiteArticles',
         });
     }
     if ($(this).attr('id') == 'BBC') {
         var id = 3;
         $.ajax({
-            url: '/Home/Index',
-            data: { id : id },
-            success: function (data) {
-                 alert('success BBC');
-            }
+            type: 'GET',
+            url: 'website/getWebsiteArticles'
+            
         });
     }
 });
