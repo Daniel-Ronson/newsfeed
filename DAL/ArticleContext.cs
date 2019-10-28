@@ -48,7 +48,6 @@ namespace News.Models
             return genres;
         }
 
-
         public Tuple<List<Article>,List<string>> ListArticles(int websiteId=1) 
         {
             
@@ -89,7 +88,6 @@ namespace News.Models
                 con.Close();
             }
             return Tuple.Create(LArticle,genreids);
-
         }
 
         public Boolean checkConnection()
