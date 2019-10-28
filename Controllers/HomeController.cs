@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using News.Models;
 
@@ -10,8 +11,10 @@ namespace News.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index(int websiteid=3)
+        public IActionResult Index()
         {
+            var websiteid = 3;
+            HttpContext.Session.SetInt32("websiteId", websiteid);
 
             ArticleContext articleContext = HttpContext.RequestServices.GetService(typeof(News.Models.ArticleContext)) as ArticleContext;
             ViewData["articles"] = articleContext.ListArticles(websiteid);

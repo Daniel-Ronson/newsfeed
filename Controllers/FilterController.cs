@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Session;
 using News.Models;
 
 namespace News.Controllers
@@ -16,22 +17,22 @@ namespace News.Controllers
         {
             genres.Add(genre);
 
-            return getFilteredArticles();
+            return getFilteredArticles(HttpContext.Session.GetInt32("websiteId").Value);
         }
 
         public IActionResult removeGenre(string genre)
         {
             genres.Remove(genre);
 
-            return getFilteredArticles();
+            return getFilteredArticles(HttpContext.Session.GetInt32("websiteId").Value);
         }
 
-        public IActionResult getFilteredArticles()
+        public IActionResult getFilteredArticles(int websiteId)
         {
+            HttpContext.Session.SetInt32("websiteId", websiteId);
+
             ArticleContext context = HttpContext.RequestServices.GetService(typeof(News.Models.ArticleContext)) as ArticleContext;
-
-            var articles = context.ListArticles();
-
+            var articles = context.ListArticles(websiteId);
             
             if (genres.Count() != 0)
             {
@@ -43,5 +44,15 @@ namespace News.Controllers
             return PartialView("_Articles");
         }
         
+        public IActionResult getFilteredGenres(int websiteId)
+        {
+            HttpContext.Session.SetInt32("websiteId", websiteId);
+
+            GenreContext genreContext = HttpContext.RequestServices.GetService(typeof(News.Models.GenreContext)) as GenreContext;
+
+            ViewData["genres"] = genreContext.ListGenres(websiteId);
+
+            return PartialView("_Genres");
+        }
     }
 }
