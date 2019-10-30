@@ -33,10 +33,10 @@
                 Pick a Site:
             </h2>
             <div class="col-md-4 d-flex align-items-center">
-                <img src="~/images/cnn.png" class="card-img pr-1" id="CNN" />
+                <img src="~/images/cnn.png" class="card-img pr-1" id=1 />
             </div>
             <div class="col-md-4 d-flex align-items-center">
-                <img src="~/images/BBC.png" class="card-img pr-1" id="BBC" />
+                <img src="~/images/BBC.png" class="card-img pr-1" id=3 />
             </div>
         </div>
     </div>
@@ -51,21 +51,15 @@
                     </h2>
                 </div>
                 <div class="card-body">
-                    <div class="tag-btn-group d-flex flex-column" data-toggle="buttons">
-                        @foreach (var item in ViewData["genres"] as List<Genre>)
-                        {
-                        <label class="btn btn-outline-dark tag-btn btn-lg">
-                            <checkbox id="@item.genre" checked autocomplete="off" data-type="genre">#@item.genre</checkbox>
-                        </label>
-                        }
-                 
-                        </div>
+                    <div id="genreContainer" class="tag-btn-group d-flex flex-column" data-toggle="buttons">
+                        @Html.Partial("_Genres")
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-md-9 d-flex flex-column overflow-auto align-items-center">
-            <div id="cardView" class="col-sm-12 d-md-flex flex-column" style="max-height: 40em;">
-                @Html.Partial("_Articles");
+            <div id="cardContainer" class="col-sm-12 d-md-flex flex-column" style="max-height: 40em;">
+                @Html.Partial("_Articles")
             </div>
         </div>
     </div>
