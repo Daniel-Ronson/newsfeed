@@ -9,15 +9,19 @@ var modal = $('#login-modal');
 })(window);
 
 $(document).ready(function () {
-    var genres = $('label');
-    genres.click(function (event) {
-        checkboxClick(event);
-    });
+    addGenreClick();
 
 })
 
+function addGenreClick() {
+    var genres = $('label');
+    genres.click(function (event) {
+        genreClick(event);
+    });
+}
 
-var checkboxClick = function (event) {
+
+var genreClick = function (event) {
     var target = event.currentTarget
     var genre = target.children[0].id;
 
@@ -64,6 +68,7 @@ function refreshGenres(data) {
     var genreView = $(GENRE_CONTAINER_SELECTOR);
     genreView.empty();
     genreView.append(data);
+    addGenreClick();
 }
 
 $('#login-modal').on('show.bs.modal', function (event) {
