@@ -1,6 +1,6 @@
 ﻿@foreach (var item in ViewData["genres"] as List<Genre>)
 {
-    <label class="btn btn-outline-dark tag-btn btn-lg">
+    <label class="genre-container tag-btn h6">
         <checkbox id="@item.genre" checked autocomplete="off" data-type="genre">#@item.genre</checkbox>
     </label>
 }

@@ -2,20 +2,15 @@
 {
     <div class="card mb-3">
         <div class="row no-gutters flex-wrap-reverse">
-            <div class="col-md-8">
                 <div class="card-body">
                     <a href="@article.WebsiteUrl" target="_blank"><h5 class="card-title">@article.Title</h5></a>
                     <p class="card-subtitle mb-2 text-muted">@article.WebsiteName</p>
                     <p class="card-text">@article.Description</p>
-                    @foreach (var genre in article.Genres as List<String>)
+                    @foreach (var genre in article.Genres)
                     {
                         <div class='badge badge-primary'>#@genre </div>
                     }
                 </div>
-            </div>
-            <div class="col-md-4 d-flex align-items-center">
-                <img src="~/images/wireframe.png" class="card-img pr-1" />
-            </div>
         </div>
         <div class="card-footer">
             <small class="text-muted">Published : @article.Date</small>

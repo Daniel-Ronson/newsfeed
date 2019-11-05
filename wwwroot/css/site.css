@@ -1,10 +1,19 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */
+:root {
+    --color-turquoise: #1ABC9C;
+    --color-green-sea: #16A085;
+    --color-peter-river: #3498DB;
+    --color-belize-hole: #2980B9;
+    --color-wet-asphalt: #34495E;
+    --color-midnight-blue: #2C3E50;
+}
+
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: var(--color-midnight-blue);
 }
-
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
@@ -13,12 +22,140 @@ body {
     padding-right: 15px;
 }
 
-.tag-btn {
-    margin-bottom: 1em;
-    border-radius: 0.5em;
-}
-
 .tag-btn-group > .tag-btn > input[type="checkbox"] {
     clip: rect(0, 0, 0, 0);
     position: absolute;
+}
+
+/* WEBSITES */
+.website-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-peter-river);
+    border: 5px var(--color-turquoise);
+    border-radius: 1rem;
+    max-height: 10rem;
+    max-width: 10rem;
+    padding: .75rem;
+    opacity: 0.7;
+    transition: opacity .15s;
+}
+
+.website-container:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+/* GENRES */
+.genre-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-peter-river);
+    border: 5px var(--color-turquoise);
+    border-radius: 0.75rem;
+    padding: .5rem;
+    opacity: 0.6;
+    transition: opacity .15s;
+    margin: 0.2rem;
+}
+
+.genre-container:hover {
+    color: white;
+    opacity: 1;
+    cursor: pointer;
+}
+
+/* Articles */
+
+.card-text {
+    color: var(--secondary)
+}
+
+.card {
+    background-color: var(--color-wet-asphalt);
+}
+
+.badge-primary {
+    background-color: var(--color-peter-river);
+    color: inherit;
+}
+
+/* SCROLLBAR */
+
+/*
+ *  STYLE 2
+ */
+
+.scrollbar
+{
+    margin-left: 30px;
+    float: left;
+    height: 300px;
+    width: 65px;
+    background: #F5F5F5;
+    overflow-y: scroll;
+    margin-bottom: 25px;
+}
+.force-overflow
+{
+    min-height: 450px;
+}
+
+#cardContainer::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: var(--color-wet-asphalt);
+}
+
+#cardContainer::-webkit-scrollbar
+{
+    width: 15px;
+    background-color: var(--color-midnight-blue);
+}
+
+#cardContainer::-webkit-scrollbar-thumb
+{
+    border-radius: 7px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: var(--color-green-sea);
+}
+
+/* FAVOURITES */
+.todo li:after {
+    display: none;
+}
+
+/* UTIL */
+.divider-sm, .divider-md, .divider-lg {
+    height: 3px;
+    background-color: var(--color-wet-asphalt);
+    width: 40%;
+    margin: 1.75rem 0;
+}
+
+.divider-sm {
+    width: 20%;
+}
+
+.divider-lg {
+    width: 60%;
+}
+
+.selected {
+    opacity: 1;
+}
+
+footer {
+    background-color: inherit;
+}
+
+.todo-search-field {
+    width: 90%;
+}
+
+.btn {
+    color: inherit;
 }
