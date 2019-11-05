@@ -1,5 +1,9 @@
 ﻿@model News.Models.LoginRegisterForm
 
+<nav class="navbar navbar-inverse navbar-embossed navbar-expand-lg" role="navigation">
+    
+
+</nav>
 <div class="panel panel-default">
     <div class="row">
         <div class="col-lg-12">
@@ -41,28 +45,28 @@
         </div>
     </div>
 </div>
-    <br />
-    <div class="row">
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="popover-title">
-                        What Interests You?
-                    </h2>
-                </div>
-                <div class="card-body">
-                    <div id="genreContainer" class="tag-btn-group d-flex flex-column" data-toggle="buttons">
-                        @Html.Partial("_Genres")
-                    </div>
-                </div>
+<br />
+<div class="row">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="popover-title">
+                    What Interests You?
+                </h2>
             </div>
-        </div>
-        <div class="col-md-9 d-flex flex-column overflow-auto align-items-center">
-            <div id="cardContainer" class="col-sm-12 d-md-flex flex-column" style="max-height: 40em;">
-                @Html.Partial("_Articles")
+            <div class="card-body">
+                <div id="genreContainer" class="tag-btn-group d-flex flex-column" data-toggle="buttons">
+                    @Html.Partial("_Genres")
+                </div>
             </div>
         </div>
     </div>
+    <div class="col-md-9 d-flex flex-column overflow-auto align-items-center">
+        <div id="cardContainer" class="col-sm-12 d-md-flex flex-column" style="max-height: 40em;">
+            @Html.Partial("_Articles")
+        </div>
+    </div>
+</div>
 
 
 
