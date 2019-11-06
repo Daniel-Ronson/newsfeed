@@ -47,10 +47,10 @@ namespace News.Models
             return genres;
         }
 
-        
-        public List<Article> ListArticles(int websiteId=3)
+
+        public List<Article> ListArticles(int websiteId = 3)
         {
-            
+
             List<Article> LArticle = new List<Article>();
             using (MySqlConnection con = getConnection())
             {
@@ -77,13 +77,28 @@ namespace News.Models
                     w.Description = rdr["description"].ToString();
 
                     LArticle.Add(w);
-                  
+
                 }
 
                 con.Close();
             }
-            return LArticle;
 
+            return LArticle;
+        }
+
+        public Boolean checkConnection()
+        {
+            MySqlConnection con = getConnection();
+            try
+            {
+                con.Open();
+                con.Close();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
