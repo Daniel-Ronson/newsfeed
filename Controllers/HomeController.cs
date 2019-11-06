@@ -17,6 +17,12 @@ namespace News.Controllers
             HttpContext.Session.SetInt32("websiteId", websiteid);
 
             ArticleContext articleContext = HttpContext.RequestServices.GetService(typeof(News.Models.ArticleContext)) as ArticleContext;
+
+            if (!articleContext.checkConnection())
+            {
+                return Content("Could not establish connection to the database.");
+            }
+            
             ViewData["articles"] = articleContext.ListArticles(websiteid).OrderByDescending(a => a.Date).ToList();
 
             GenreContext genreContext = HttpContext.RequestServices.GetService(typeof(News.Models.GenreContext)) as GenreContext;
