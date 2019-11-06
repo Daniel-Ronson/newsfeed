@@ -10,7 +10,6 @@ namespace News.Models
     public class ArticleContext : DbContext
     {
         public string ConnectionString { get; set; }
-        public DbSet<Article> Articles { get; set; }
 
         public ArticleContext(string connectionString)
         {
@@ -53,7 +52,6 @@ namespace News.Models
         {
             
             List<Article> LArticle = new List<Article>();
-            List<string> genreids = new List<string>();
             using (MySqlConnection con = getConnection())
             {
                 MySqlCommand cmd = new MySqlCommand("getArticles", con);

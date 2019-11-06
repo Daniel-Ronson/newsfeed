@@ -1,58 +1,73 @@
 ﻿let CARD_CONTAINER_SELECTOR = '#cardContainer';
-let GENRE_CONTAINER_SELECTOR = '#genreContainer';
+let GENRE_CONTAINER_SELECTOR = '#genres';
+let WEBSITE_CONTAINER_SELECTOR = ".website-container";
 
-var modal = $('#login-modal');
+let loginModal = $('#login-modal');
 (function (window) {
     "use strict";
 
-    var App = window.App;
+    const App = window.App;
 })(window);
 
 $(document).ready(function () {
+    addGenreClick();
+    addWebsiteClick();
+});
+
+function addGenreClick() {
     var genres = $('label');
     genres.click(function (event) {
-        checkboxClick(event);
+        genreClick(event);
     });
+}
 
-})
-
-
-var checkboxClick = function (event) {
-    var target = event.currentTarget
+var genreClick = function (event) {
+    var target = event.currentTarget;
     var genre = target.children[0].id;
 
-    var shouldRemove = target.className.endsWith("active");
-    var cardview = $('#cardView');
+    var shouldRemove = target.className.endsWith("selected");
+    var cardview = $(CARD_CONTAINER_SELECTOR);
     cardview.empty();
 
     if (shouldRemove) {
+        $(target).removeClass("selected");
+
         $.ajax({
             url: 'filter/removeGenre',
             data: { genre: genre },
             success: (data => refreshCards(data))
         });
     } else {
+        $(target).addClass("selected");
+
         $.ajax({
             url: 'filter/addGenre',
             data: { genre: genre },
             success: (data => refreshCards(data))
         });
     }
-}
+};
 
-$('img').bind('click', function () {
-    var id = $(this).attr('id');
-    $.ajax({
-        url: 'filter/getFilteredArticles',
-        data: { websiteId: id },
-        success: (data => refreshCards(data))
-     });
-    $.ajax({
-        url: 'filter/getFilteredGenres',
-        data: { websiteId: id },
-        success: (data => refreshGenres(data))
-     });
- });
+function addWebsiteClick() {
+    $(WEBSITE_CONTAINER_SELECTOR).bind('click', function () {
+        let target = $(this);
+        var id = target.attr('value');
+
+        $(WEBSITE_CONTAINER_SELECTOR).removeClass("selected");
+        target.addClass("selected");
+        
+        $.ajax({
+            url: 'filter/getFilteredArticles',
+            data: {websiteId: id},
+            success: (data => refreshCards(data))
+        });
+        $.ajax({
+            url: 'filter/getFilteredGenres',
+            data: {websiteId: id},
+            success: (data => refreshGenres(data))
+        });
+    });
+}
 
 function refreshCards(data) {
     var cardview = $(CARD_CONTAINER_SELECTOR);
@@ -64,20 +79,21 @@ function refreshGenres(data) {
     var genreView = $(GENRE_CONTAINER_SELECTOR);
     genreView.empty();
     genreView.append(data);
+    addGenreClick();
 }
 
-$('#login-modal').on('show.bs.modal', function (event) {
+loginModal.on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var recipient = button.data('type');
 
     
-    modal.find('.modal-title').text(recipient);
+    loginModal.find('.modal-title').text(recipient);
 
     if (recipient === "Signup") {
-        modal.find('[id=login-form]').hide();
-        modal.find('[id=signup-form]').show();   
+        loginModal.find('[id=login-form]').hide();
+        loginModal.find('[id=signup-form]').show();   
     } else {
-        modal.find('[id=signup-form]').hide();
-        modal.find('[id=login-form]').show();
+        loginModal.find('[id=signup-form]').hide();
+        loginModal.find('[id=login-form]').show();
     }
 });

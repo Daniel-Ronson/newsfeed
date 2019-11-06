@@ -18,13 +18,7 @@ namespace News.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Index(LoginRegisterForm model)
         {
-            if (model.LoginPassword != null)
-            {
-                return HandleLogin(model);
-            } else
-            {
-                return HandleRegister(model);
-            }
+            return model.LoginPassword != null ? HandleLogin(model) : HandleRegister(model);
         }
 
         private IActionResult HandleLogin(LoginRegisterForm model)

@@ -21,7 +21,6 @@ namespace News.Models
             return new MySqlConnection(ConnectionString);
         }
 
-        //pass list of known genres for a given website to this function, so we can print out the relevant genres 
         public List<Genre> ListGenres(int websiteid)
 
         {
@@ -39,7 +38,6 @@ namespace News.Models
                 while (reader.Read())
 
                 {
-
                     Genre g = new Genre();
                     g.genreID = Convert.ToInt32(reader["genreid"]);
                     g.genre = reader["genre"].ToString();

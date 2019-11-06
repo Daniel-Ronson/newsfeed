@@ -17,7 +17,7 @@ namespace News.Controllers
             HttpContext.Session.SetInt32("websiteId", websiteid);
 
             ArticleContext articleContext = HttpContext.RequestServices.GetService(typeof(News.Models.ArticleContext)) as ArticleContext;
-            ViewData["articles"] = articleContext.ListArticles(websiteid);
+            ViewData["articles"] = articleContext.ListArticles(websiteid).OrderByDescending(a => a.Date).ToList();
 
             GenreContext genreContext = HttpContext.RequestServices.GetService(typeof(News.Models.GenreContext)) as GenreContext;
             ViewData["genres"] = genreContext.ListGenres(websiteid);

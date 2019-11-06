@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Session;
 using News.Models;
+using Org.BouncyCastle.Crypto.Digests;
 
 namespace News.Controllers
 {
@@ -39,6 +41,8 @@ namespace News.Controllers
                 articles = articles.Where(a => genres.Except(a.Genres).Count() < genres.Count()).ToList();
             }
 
+            articles = articles.OrderByDescending(a => a.Date).ToList();
+
             ViewData["articles"] = articles;
 
             return PartialView("_Articles");
@@ -46,6 +50,8 @@ namespace News.Controllers
         
         public IActionResult getFilteredGenres(int websiteId)
         {
+            genres.Clear();
+            
             HttpContext.Session.SetInt32("websiteId", websiteId);
 
             GenreContext genreContext = HttpContext.RequestServices.GetService(typeof(News.Models.GenreContext)) as GenreContext;
