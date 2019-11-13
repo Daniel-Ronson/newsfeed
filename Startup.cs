@@ -31,7 +31,9 @@ namespace News
             services.AddMvc();
             services.Add(new ServiceDescriptor(typeof(GenreContext), new GenreContext(Configuration.GetConnectionString("DefaultConnection"))));
             services.Add(new ServiceDescriptor(typeof(ArticleContext), new ArticleContext(Configuration.GetConnectionString("DefaultConnection"))));
-           
+            services.Add(new ServiceDescriptor(typeof(LoginContext), new LoginContext(Configuration.GetConnectionString("DefaultConnection"))));
+
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.

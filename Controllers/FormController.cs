@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using News.Models;
 
@@ -29,18 +30,30 @@ namespace News.Controllers
 
         private IActionResult HandleLogin(LoginRegisterForm model)
         {
-            return Content($"LoginForm!" +
-                $"{model.LoginUserEmail}" +
-                $"{model.LoginPassword}");
+            
+            LoginContext context = HttpContext.RequestServices.GetService(typeof(News.Models.LoginContext)) as LoginContext;
+           string test =  context.CheckCredentials(model.LoginUserEmail, model.LoginPassword);
+
+
+            return Content($"{test}");
+            //return Content($"LoginForm!" +
+            //    $"{model.LoginUserEmail}" +
+            //    $"{model.LoginPassword}");
         }
 
         private IActionResult HandleRegister(LoginRegisterForm model)
         {
-            return Content($"RegisterForm!" +
-                $"{model.RegisterEmail}" +
-                $"{model.RegisterUsername}" +
-                $"{model.RegisterPassword}" +
-                $"{model.RegisterPasswordCheck}");
+            if (model.RegisterPassword == model.RegisterPasswordCheck)
+            {
+
+                LoginContext context = HttpContext.RequestServices.GetService(typeof(News.Models.LoginContext)) as LoginContext;
+                string result = context.AddUser(model.RegisterEmail, model.RegisterPassword, model.RegisterUsername, model.RegisterPasswordCheck);
+                return Content($"{result}");
+
+            }
+
+            return Content($"RegisterForm!");
+
         }
     }
 }
