@@ -9,12 +9,6 @@ namespace News.Controllers
 {
     public class FormController : Controller
     {
-        [HttpGet]
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Index(LoginRegisterForm model)
         {
