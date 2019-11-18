@@ -4,33 +4,30 @@ let WEBSITE_CONTAINER_SELECTOR = ".website-container";
 let ARTICLE_SELECTOR = '.card, .mb-3';
 let loginModal = $('#login-modal');
 
-
-
-// TODO: remove
-(function (window) {
-    "use strict";
-
-    const App = window.App;
-})(window);
-
-$(document).ready(function () {
-});
-
-var genreClick = function (event) {
-    var genre = $(event).children()[0].id;
-    var shouldRemove = $(event).hasClass("selected");
+/**
+ * Handles clicks on genres. Adds visual cue of selected state and filters genres.
+ * @param element {Element} The clicked genre element
+ */
+var genreClick = function (element) {
+    var genre = $(element).children()[0].id;
+    var shouldRemove = $(element).hasClass("selected");
 
     if (shouldRemove) {
-        $(event).removeClass("selected");
+        $(element).removeClass("selected");
     } else {
-        $(event).addClass("selected");
+        $(element).addClass("selected");
     }
 
     filterByGenre(genre);
+    $("#article-search-field").val("");
 };
 
-function websiteClick(e) {
-    let target = $(e);
+/**
+ * Refreshes articles and genres with new data from clicked website.
+ * @param element {Element} The clicked website
+ */
+function websiteClick(element) {
+    let target = $(element);
     var id = target.attr('value');
 
     $(WEBSITE_CONTAINER_SELECTOR).removeClass("selected");
@@ -46,19 +43,28 @@ function websiteClick(e) {
         data: {websiteId: id},
         success: (data => refreshGenres(data))
     });
+    $("#article-search-field").val("");
 }
 
+/**
+ * Resets articles with new data
+ * @param data {string} HTML formatted article data
+ */
 function refreshCards(data) {
     let cardview = $(CARD_CONTAINER_SELECTOR);
     cardview.empty();
     cardview.append(data);
 }
 
+/**
+ * Resets genres with new data
+ * @param data {string} HTML formatted genre data
+ */
 function refreshGenres(data) {  
     let genreView = $(GENRE_CONTAINER_SELECTOR);
     genreView.empty();
     genreView.append(data);
-    genres.empty(); // Reset genre filter
+    genres = []; // Reset genre filter
 }
 
 loginModal.on('show.bs.modal', function (event) {
