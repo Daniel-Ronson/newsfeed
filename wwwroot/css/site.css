@@ -82,12 +82,25 @@ body {
     color: inherit;
 }
 
+.fav-icon {
+    position: absolute;
+    color: var(--gray);
+    right: 1rem;
+    top: 1.5rem;
+    font-size: 33px;
+    height: 0;
+}
+
+.fav-icon.fui-heart:before {
+    transition: 0.2s;
+}
+
+.fav-icon.fui-heart:hover:before {
+    font-size: 35px;
+    color: var(--color-green-sea);
+}
+
 /* SCROLLBAR */
-
-/*
- *  STYLE 2
- */
-
 .scrollbar
 {
     margin-left: 30px;
