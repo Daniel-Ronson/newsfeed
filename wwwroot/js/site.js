@@ -1,4 +1,4 @@
-﻿let CARD_CONTAINER_SELECTOR = '#cardContainer';
+﻿let CARD_CONTAINER_SELECTOR = '#articles';
 let GENRE_CONTAINER_SELECTOR = '#genres';
 let WEBSITE_CONTAINER_SELECTOR = ".website-container";
 let ARTICLE_SELECTOR = '.card, .mb-3';
@@ -36,7 +36,10 @@ function websiteClick(element) {
     $.ajax({
         url: 'filter/getFilteredArticles',
         data: {websiteId: id},
-        success: (data => refreshCards(data))
+        success: (function (data) {
+            refreshCards(data);
+            markFavourites();
+        })
     });
     $.ajax({
         url: 'filter/getFilteredGenres',
@@ -60,7 +63,7 @@ function refreshCards(data) {
  * Resets genres with new data
  * @param data {string} HTML formatted genre data
  */
-function refreshGenres(data) {  
+function refreshGenres(data) {
     let genreView = $(GENRE_CONTAINER_SELECTOR);
     genreView.empty();
     genreView.append(data);

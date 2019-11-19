@@ -1,0 +1,12 @@
+﻿@foreach (var article in ViewData["favourites"] as List<Article>)
+{
+    <li class="todo-done">
+        <a class="todo-icon fui-heart" onclick="removeFavourite(@article.ID)"></a>
+        <a class="todo-content" href="@article.WebsiteUrl">
+            <h4 class="todo-name text-ellipsis">
+                Cranborne Chase first entire AONB to be dark sky reserve
+            </h4>
+            BBC
+        </a>
+    </li>
+}

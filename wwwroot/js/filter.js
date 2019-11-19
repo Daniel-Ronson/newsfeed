@@ -40,11 +40,9 @@ function searchFavourites(element) {
 function toggleElement(shouldDisplay) {
     if (shouldDisplay) {
         if ($(this).hasClass("d-none")) {
-            $(this).fadeIn();
             $(this).removeClass("d-none");
         }
     } else {
-        $(this).fadeOut();
         $(this).addClass("d-none");
     }
 }
@@ -57,7 +55,7 @@ function getGenreExists() {
     let articleGenres = [];
 
     $(this).children(".row").children().children(".badge").each(function () {
-        articleGenres.push($(this).text().slice(1, -1));
+        articleGenres.push($(this).text().slice(1));
     });
 
     return articleGenres.some(genre => genres.includes(genre));
