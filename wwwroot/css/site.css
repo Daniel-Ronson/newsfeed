@@ -186,6 +186,20 @@ body {
     background-color: var(--color-wet-asphalt);
 }
 
+.todo-search:before {
+    left: 89%;
+}
+
+.fui-list {
+    position: absolute;
+    top: 29%;
+    right: 3%;
+    transition: 0.4s;
+}
+
+.fui-list:hover {
+    cursor: pointer;
+}
 /* UTIL */
 .divider-sm, .divider-md, .divider-lg {
     height: 3px;

@@ -4,6 +4,13 @@ let WEBSITE_CONTAINER_SELECTOR = ".website-container";
 let ARTICLE_SELECTOR = '.card, .mb-3';
 let loginModal = $('#login-modal');
 
+$(function () {
+    $(FAVOURITES_TOGGLE_SELECTOR).click(function () {
+        toggleFavourites();
+    })
+});
+
+
 /**
  * Handles clicks on genres. Adds visual cue of selected state and filters genres.
  * @param element {Element} The clicked genre element

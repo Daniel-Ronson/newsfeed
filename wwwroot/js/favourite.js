@@ -1,9 +1,18 @@
 ﻿let FAVOURITES_SELECTOR = "#favourites";
+let FAVOURITES_TOGGLE_SELECTOR = "#toggleFav";
 
 let favourites = [];
+let degrees = 0;
 
 function getUserFavourites(userId) {
-    
+    // TODO : Get user's favourites
+}
+
+function toggleFavourites(icon) {
+    let container = $(FAVOURITES_SELECTOR + " ul");
+    degrees = degrees === 0 ? 90 : 0;
+    $(icon).css({'transform' : 'rotate('+ degrees +'deg)'});
+    container.slideToggle();
 }
 
 function markFavourites() {
