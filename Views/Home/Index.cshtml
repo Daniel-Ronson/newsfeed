@@ -37,29 +37,12 @@
 </div>
 <div class="row">
     <div class="col-md-4">
-        <div class="todo">
+        <div id="favourites" class="todo">
             <div class="todo-search">
                 <input class="todo-search-field" type="search" onchange="searchFavourites(this)" placeholder="Search Favourites">
+                <div class="fui-list" data-toggle="tooltip" onclick="toggleFavourites(this)" data-original-title="Click to expand or shrink favourites"></div>
             </div>
             <ul>
-                <li class="todo-done">
-                    <div class="todo-icon fui-heart"></div>
-                    <div class="todo-content">
-                        <h4 class="todo-name">
-                            Cranborne Chase first entire AONB to be dark sky reserve
-                        </h4>
-                        BBC
-                    </div>
-                </li>
-                <li class="">
-                    <div class="todo-icon fui-heart"></div>
-                    <div class="todo-content">
-                        <h4 class="todo-name">
-                            Diplomat George Kent did not testify on behalf of any side, his lawyer says
-                        </h4>
-                        CNN
-                    </div>
-                </li>
             </ul>
         </div>
     </div>
@@ -67,7 +50,7 @@
         <div class="todo-search w-100">
             <input id="article-search-field" class="todo-search-field" type="search" oninput="searchArticles(this)" placeholder="Search Articles">
         </div>
-        <div id="cardContainer" class="article-container">
+        <div id="articles" class="article-container">
             @Html.Partial("_Articles")
         </div>
     </div>

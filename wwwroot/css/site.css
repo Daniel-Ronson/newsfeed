@@ -78,7 +78,7 @@ body {
     transform: scale(1.1);
 }
 
-/* Genre scrollbar */
+/* GENRE SCROLLBAR */
 
 .genre-container::-webkit-scrollbar-track
 {
@@ -100,7 +100,7 @@ body {
     background-color: var(--color-peter-river);
 }
 
-/* Articles */
+/* ARTICLES */
 .article-container {
     display: flex;
     flex-direction: column;
@@ -138,9 +138,10 @@ body {
 .fav-icon.fui-heart:hover:before {
     font-size: 35px;
     color: var(--color-green-sea);
+    cursor: pointer;
 }
 
-/* SCROLLBAR */
+/* ARTICLE SCROLLBAR */
 .scrollbar
 {
     margin-left: 30px;
@@ -156,20 +157,20 @@ body {
     min-height: 450px;
 }
 
-#cardContainer::-webkit-scrollbar-track
+#articles::-webkit-scrollbar-track
 {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     border-radius: 10px;
     background-color: var(--color-wet-asphalt);
 }
 
-#cardContainer::-webkit-scrollbar
+#articles::-webkit-scrollbar
 {
     width: 15px;
     background-color: var(--color-midnight-blue);
 }
 
-#cardContainer::-webkit-scrollbar-thumb
+#articles::-webkit-scrollbar-thumb
 {
     border-radius: 7px;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
@@ -181,6 +182,24 @@ body {
     display: none;
 }
 
+.todo li.todo-done {
+    background-color: var(--color-wet-asphalt);
+}
+
+.todo-search:before {
+    left: 89%;
+}
+
+.fui-list {
+    position: absolute;
+    top: 29%;
+    right: 3%;
+    transition: 0.4s;
+}
+
+.fui-list:hover {
+    cursor: pointer;
+}
 /* UTIL */
 .divider-sm, .divider-md, .divider-lg {
     height: 3px;
@@ -201,6 +220,10 @@ body {
     opacity: 1;
 }
 
+.icon-selected {
+    color: var(--color-green-sea);
+}
+
 footer {
     background-color: inherit;
 }
@@ -211,4 +234,10 @@ footer {
 
 .btn {
     color: inherit;
+}
+
+.text-ellipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
