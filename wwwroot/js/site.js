@@ -4,6 +4,10 @@ let WEBSITE_CONTAINER_SELECTOR = ".website-container";
 let ARTICLE_SELECTOR = '.card, .mb-3';
 let loginModal = $('#login-modal');
 
+$('#settings_dropdown').click(function (e) {
+   // e.preventDefault();
+    e.stopPropagation();
+});
 $(function () {
     $(FAVOURITES_TOGGLE_SELECTOR).click(function () {
         toggleFavourites();

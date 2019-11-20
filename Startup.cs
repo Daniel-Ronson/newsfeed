@@ -13,6 +13,7 @@ using News.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using News.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace News
 {
@@ -28,9 +29,16 @@ namespace News
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+          //  services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            //        .AddCookie(options =>
+              //      {
+                //        options.LoginPath = "/Home";
+
+                  //  });
             services.AddMvc();
             services.Add(new ServiceDescriptor(typeof(GenreContext), new GenreContext(Configuration.GetConnectionString("DefaultConnection"))));
             services.Add(new ServiceDescriptor(typeof(ArticleContext), new ArticleContext(Configuration.GetConnectionString("DefaultConnection"))));
+            services.Add(new ServiceDescriptor(typeof(UserContext), new UserContext(Configuration.GetConnectionString("DefaultConnection"))));
             services.AddDistributedMemoryCache();
 
             services.AddSession(options =>
