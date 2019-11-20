@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 
 
 namespace News.Models
@@ -25,8 +28,10 @@ namespace News.Models
         {
             using(MySqlConnection conn = getConnection())
             {
-      
-                string sql = $"SELECT  email, password, username FROM user WHERE email = '{email}' AND password = '{password}'";
+                MD5 md5Hash = MD5.Create();
+                
+                string hashedPassword = GetMd5Hash(md5Hash, password);
+                string sql = $"SELECT  email, password, username FROM user WHERE email = '{email}' AND password = '{hashedPassword}'";
              //   string sql = $"SELECT  email FROM user WHERE email = {email}";
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -39,6 +44,44 @@ namespace News.Models
                 
                 return test;
 
+            }
+        }
+        static string GetMd5Hash(MD5 md5Hash, string input)
+        {
+
+            // Convert the input string to a byte array and compute the hash.
+            byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+            // Create a new Stringbuilder to collect the bytes
+            // and create a string.
+            StringBuilder sBuilder = new StringBuilder();
+
+            // Loop through each byte of the hashed data 
+            // and format each one as a hexadecimal string.
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+
+            // Return the hexadecimal string.
+            return sBuilder.ToString();
+        }
+        // Verify a hash against a string.
+        static bool VerifyMd5Hash(MD5 md5Hash, string input, string hash)
+        {
+            // Hash the input.
+            string hashOfInput = GetMd5Hash(md5Hash, input);
+
+            // Create a StringComparer an compare the hashes.
+            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+
+            if (0 == comparer.Compare(hashOfInput, hash))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
