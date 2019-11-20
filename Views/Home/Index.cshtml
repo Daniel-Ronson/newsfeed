@@ -18,18 +18,18 @@
     </div>
 </nav>
 <div class="row">
-    <div id="websites" class="col-lg-12 d-flex flex-wrap justify-content-around" overflow-auto>
-        <div class="website-container" value="1">
+    <div id="websites" class="col-lg-12 d-flex justify-content-around" overflow-auto>
+        <div class="website-container" onclick="websiteClick(this)" value="1">
             <img src="~/images/cnn.png"/>
         </div>
-        <div class="website-container selected" value="3">
+        <div class="website-container selected" onclick="websiteClick(this)" value="3">
             <img src="~/images/BBC.png"/>
         </div>
     </div>
 </div>
 <div class="row justify-content-center">
     <div class="divider-md"></div>
-    <div id="genres" class="col-lg-12 d-flex flex-wrap justify-content-around tag-btn-group" data-toggle="buttons" overflow-auto>
+    <div id="genres" class="genre-container col-lg-12" data-toggle="buttons" overflow-auto>
         @Html.Partial("_Genres")
     </div>
     <div class="divider-lg"></div>
@@ -39,7 +39,7 @@
     <div class="col-md-4">
         <div class="todo">
             <div class="todo-search">
-                <input class="todo-search-field" type="search" value="" placeholder="Search Favourites">
+                <input class="todo-search-field" type="search" onchange="searchFavourites(this)" placeholder="Search Favourites">
             </div>
             <ul>
                 <li class="todo-done">
@@ -65,9 +65,9 @@
     </div>
     <div class="col-md-8 d-flex flex-column align-items-center">
         <div class="todo-search w-100">
-            <input class="todo-search-field" type="search" value="" placeholder="Search Articles">
+            <input id="article-search-field" class="todo-search-field" type="search" oninput="searchArticles(this)" placeholder="Search Articles">
         </div>
-        <div id="cardContainer" class="d-md-flex flex-column overflow-auto" style="max-height: 40em;">
+        <div id="cardContainer" class="article-container">
             @Html.Partial("_Articles")
         </div>
     </div>

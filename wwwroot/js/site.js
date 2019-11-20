@@ -1,97 +1,81 @@
 ﻿let CARD_CONTAINER_SELECTOR = '#cardContainer';
 let GENRE_CONTAINER_SELECTOR = '#genres';
 let WEBSITE_CONTAINER_SELECTOR = ".website-container";
-
+let ARTICLE_SELECTOR = '.card, .mb-3';
 let loginModal = $('#login-modal');
-(function (window) {
-    "use strict";
 
-    const App = window.App;
-})(window);
-
-$(document).ready(function () {
-    addGenreClick();
-    addWebsiteClick();
-});
-
-function addGenreClick() {
-    var genres = $('label');
-    genres.click(function (event) {
-        genreClick(event);
-    });
-}
-
-var genreClick = function (event) {
-    var target = event.currentTarget;
-    var genre = target.children[0].id;
-
-    var shouldRemove = target.className.endsWith("selected");
-    var cardview = $(CARD_CONTAINER_SELECTOR);
-    cardview.empty();
+/**
+ * Handles clicks on genres. Adds visual cue of selected state and filters genres.
+ * @param element {Element} The clicked genre element
+ */
+var genreClick = function (element) {
+    var genre = $(element).children()[0].id;
+    var shouldRemove = $(element).hasClass("selected");
 
     if (shouldRemove) {
-        $(target).removeClass("selected");
-
-        $.ajax({
-            url: 'filter/removeGenre',
-            data: { genre: genre },
-            success: (data => refreshCards(data))
-        });
+        $(element).removeClass("selected");
     } else {
-        $(target).addClass("selected");
-
-        $.ajax({
-            url: 'filter/addGenre',
-            data: { genre: genre },
-            success: (data => refreshCards(data))
-        });
+        $(element).addClass("selected");
     }
+
+    filterByGenre(genre);
+    $("#article-search-field").val("");
 };
 
-function addWebsiteClick() {
-    $(WEBSITE_CONTAINER_SELECTOR).bind('click', function () {
-        let target = $(this);
-        var id = target.attr('value');
+/**
+ * Refreshes articles and genres with new data from clicked website.
+ * @param element {Element} The clicked website
+ */
+function websiteClick(element) {
+    let target = $(element);
+    var id = target.attr('value');
 
-        $(WEBSITE_CONTAINER_SELECTOR).removeClass("selected");
-        target.addClass("selected");
-        
-        $.ajax({
-            url: 'filter/getFilteredArticles',
-            data: {websiteId: id},
-            success: (data => refreshCards(data))
-        });
-        $.ajax({
-            url: 'filter/getFilteredGenres',
-            data: {websiteId: id},
-            success: (data => refreshGenres(data))
-        });
+    $(WEBSITE_CONTAINER_SELECTOR).removeClass("selected");
+    target.addClass("selected");
+
+    $.ajax({
+        url: 'filter/getFilteredArticles',
+        data: {websiteId: id},
+        success: (data => refreshCards(data))
     });
+    $.ajax({
+        url: 'filter/getFilteredGenres',
+        data: {websiteId: id},
+        success: (data => refreshGenres(data))
+    });
+    $("#article-search-field").val("");
 }
 
+/**
+ * Resets articles with new data
+ * @param data {string} HTML formatted article data
+ */
 function refreshCards(data) {
-    var cardview = $(CARD_CONTAINER_SELECTOR);
+    let cardview = $(CARD_CONTAINER_SELECTOR);
     cardview.empty();
     cardview.append(data);
 }
 
-function refreshGenres(data) {
-    var genreView = $(GENRE_CONTAINER_SELECTOR);
+/**
+ * Resets genres with new data
+ * @param data {string} HTML formatted genre data
+ */
+function refreshGenres(data) {  
+    let genreView = $(GENRE_CONTAINER_SELECTOR);
     genreView.empty();
     genreView.append(data);
-    addGenreClick();
+    genres = []; // Reset genre filter
 }
 
 loginModal.on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var recipient = button.data('type');
 
-    
     loginModal.find('.modal-title').text(recipient);
 
     if (recipient === "Signup") {
         loginModal.find('[id=login-form]').hide();
-        loginModal.find('[id=signup-form]').show();   
+        loginModal.find('[id=signup-form]').show();
     } else {
         loginModal.find('[id=signup-form]').hide();
         loginModal.find('[id=login-form]').show();
