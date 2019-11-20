@@ -30,6 +30,15 @@ function toggleIconSelected(id) {
     }
 }
 
+function toggleFavourite(id) {
+    let icon = $('#' + id).children('.row').children().children('.fav-icon');
+    if (icon.hasClass('icon-selected')) {
+        removeFavourite(id);
+    } else {
+        addFavourite(id);
+    }
+}
+
 function addFavourite(id) {
     if (!favourites.includes(id)) {
         favourites.push(id);
@@ -56,7 +65,8 @@ function addFavourite(id) {
 
     let content = $('<a></a>', {
         'class': 'todo-content',
-        'href': url
+        'href': url,
+        'target': '_blank'
     });
 
     let name = $('<h4></h4>',

@@ -3,7 +3,7 @@
     <div id="@article.ID" class="card mb-3">
         <div class="row no-gutters flex-wrap-reverse">
             <div class="card-body">
-                <div class="fav-icon fui-heart" onclick="addFavourite(@article.ID)">
+                <div class="fav-icon fui-heart" onclick="toggleFavourite(@article.ID)">
                 </div>
                 <a href="@article.WebsiteUrl" target="_blank">
                     <h5 class="card-title" style="width: 90%;">@article.Title</h5>
