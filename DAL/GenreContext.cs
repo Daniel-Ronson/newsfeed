@@ -22,7 +22,7 @@ namespace News.Models
         }
 
         //pass list of known genres for a given website to this function, so we can print out the relevant genres 
-        public List<Genre> ListGenres(int websiteid )
+        public List<Genre> ListGenres(int websiteid)
 
         {
             List<Genre> GenreList = new List<Genre>();

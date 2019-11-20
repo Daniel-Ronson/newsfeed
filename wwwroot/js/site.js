@@ -1,4 +1,7 @@
-﻿var modal = $('#login-modal');
+﻿let CARD_CONTAINER_SELECTOR = '#cardContainer';
+let GENRE_CONTAINER_SELECTOR = '#genreContainer';
+
+var modal = $('#login-modal');
 (function (window) {
     "use strict";
 
@@ -26,42 +29,42 @@ var checkboxClick = function (event) {
         $.ajax({
             url: 'filter/removeGenre',
             data: { genre: genre },
-            success: function (data) {
-                cardview.empty();
-                cardview.append(data);
-            }
+            success: (data => refreshCards(data))
         });
     } else {
         $.ajax({
             url: 'filter/addGenre',
             data: { genre: genre },
-            success: function (data) {
-                cardview.empty();
-                cardview.append(data);
-            }
+            success: (data => refreshCards(data))
         });
     }
 }
 
 $('img').bind('click', function () {
-    if ($(this).attr('id') == 'CNN') {
-        var id = 1;
-        $.ajax({
-            type: 'GET',
-            url: 'Website/getWebsiteArticles',
-        });
-    }
-    if ($(this).attr('id') == 'BBC') {
-        var id = 3;
-        $.ajax({
-            type: 'GET',
-            url: 'website/getWebsiteArticles'
-            
-        });
-    }
-});
+    var id = $(this).attr('id');
+    $.ajax({
+        url: 'filter/getFilteredArticles',
+        data: { websiteId: id },
+        success: (data => refreshCards(data))
+     });
+    $.ajax({
+        url: 'filter/getFilteredGenres',
+        data: { websiteId: id },
+        success: (data => refreshGenres(data))
+     });
+ });
 
+function refreshCards(data) {
+    var cardview = $(CARD_CONTAINER_SELECTOR);
+    cardview.empty();
+    cardview.append(data);
+}
 
+function refreshGenres(data) {
+    var genreView = $(GENRE_CONTAINER_SELECTOR);
+    genreView.empty();
+    genreView.append(data);
+}
 
 $('#login-modal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
