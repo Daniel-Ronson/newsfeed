@@ -3,6 +3,10 @@ let GENRE_CONTAINER_SELECTOR = '#genres';
 let WEBSITE_CONTAINER_SELECTOR = ".website-container";
 
 let loginModal = $('#login-modal');
+$('#settings_dropdown').click(function (e) {
+   // e.preventDefault();
+    e.stopPropagation();
+});
 (function (window) {
     "use strict";
 
@@ -15,7 +19,7 @@ $(document).ready(function () {
 });
 
 function addGenreClick() {
-    var genres = $('label');
+    var genres = $('#genres label');
     genres.click(function (event) {
         genreClick(event);
     });
