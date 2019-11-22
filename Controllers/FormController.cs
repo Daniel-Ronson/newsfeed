@@ -26,15 +26,12 @@ namespace News.Controllers
 
             if (LoginFlag == true)
             {
-                this.Set();
-                return Content($"User Does exist");
+                this.SetCookie();
+                return Content($"User Does exist : " + HttpContext.Request.Cookies["session_id"]);
             }
             else
                 return Content($"user does not exist");
 
-            //return Content($"LoginForm!" +
-            //    $"{model.LoginUserEmail}" +
-            //    $"{model.LoginPassword}");
         }
 
         private IActionResult HandleRegister(LoginRegisterForm model)
@@ -79,11 +76,9 @@ namespace News.Controllers
             // Return the hexadecimal string.
             return sBuilder.ToString();
         }
-        public void Set()
+        public void SetCookie()
         {
-            // HttpContext context = HttpContext.Current;
 
-            // if(HttpContext.Request.Cookies["session_id"] == null)
             if (!HttpContext.Request.Cookies.ContainsKey("session_id"))
             {
                 string SessionId = Guid.NewGuid().ToString();
