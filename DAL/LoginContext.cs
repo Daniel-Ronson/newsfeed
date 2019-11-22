@@ -1,4 +1,6 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.AspNetCore.Http;
+using MySql.Data.MySqlClient;
+using News.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -6,7 +8,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-
+using System.Web.Mvc;
 
 namespace News.Models
 {
@@ -24,25 +26,33 @@ namespace News.Models
             return new MySqlConnection(ConnectionString);
         }
 
-        public string CheckCredentials(string email, string password)
+        public bool CheckCredentials(string email, string password)
         {
             using(MySqlConnection conn = getConnection())
             {
+                //CookiesController newCookie = new CookiesController();
                 MD5 md5Hash = MD5.Create();
-                
+                bool ReturnData;
                 string hashedPassword = GetMd5Hash(md5Hash, password);
                 string sql = $"SELECT  email, password, username FROM user WHERE email = '{email}' AND password = '{hashedPassword}'";
-             //   string sql = $"SELECT  email FROM user WHERE email = {email}";
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    reader.Read();
+                    //ReturnData = reader["username"].ToString();
+                    ReturnData = true;                 
+                }
+                catch
+                {
+                    ReturnData = false;
 
-                MySqlDataReader reader = cmd.ExecuteReader();
-                reader.Read();
-                string test = reader["username"].ToString();
+                   // ReturnData = "User Does not Exist";
+                }
                 conn.Close();
-                
-                return test;
+                return ReturnData;
 
             }
         }

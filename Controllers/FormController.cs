@@ -20,12 +20,18 @@ namespace News.Controllers
 
         private IActionResult HandleLogin(LoginRegisterForm model)
         {
-            
+            CookiesController UserCookie = new CookiesController();
             LoginContext context = HttpContext.RequestServices.GetService(typeof(News.Models.LoginContext)) as LoginContext;
-           string test =  context.CheckCredentials(model.LoginUserEmail, model.LoginPassword);
+            bool LoginFlag =  context.CheckCredentials(model.LoginUserEmail, model.LoginPassword);
 
+            if (LoginFlag == true)
+            {
+                this.Set();
+                return Content($"User Does exist");
+            }
+            else
+                return Content($"user does not exist");
 
-            return Content($"{test}");
             //return Content($"LoginForm!" +
             //    $"{model.LoginUserEmail}" +
             //    $"{model.LoginPassword}");
@@ -73,7 +79,32 @@ namespace News.Controllers
             // Return the hexadecimal string.
             return sBuilder.ToString();
         }
+        public void Set()
+        {
+            // HttpContext context = HttpContext.Current;
 
+            // if(HttpContext.Request.Cookies["session_id"] == null)
+            if (!HttpContext.Request.Cookies.ContainsKey("session_id"))
+            {
+                string SessionId = Guid.NewGuid().ToString();
+                CookieOptions cookieOptions = new CookieOptions
+                {
+                    Expires = new DateTimeOffset(DateTime.Now.AddDays(1))
+                };
+                HttpContext.Response.Cookies.Append("date_of_creation", DateTime.Now.ToString(), cookieOptions); //set cookie
+                HttpContext.Response.Cookies.Append("session_id", SessionId, cookieOptions); //set cookie
+                //return Content( "Welcome, new visitor! Session Id: " + HttpContext.Request.Cookies["session_id"]);
+            }
+
+            else
+            {
+                DateTime firstRequest = DateTime.Parse(HttpContext.Request.Cookies["date_of_creation"]);
+                string sessionid = HttpContext.Request.Cookies["session_id"];
+                //cookieOptions.Expires = DateTime.Now.AddDays(2);
+                //return Content("Welcome back, user! You first visited us on: " + firstRequest.ToString()+ " Sessionid: " + HttpContext.Request.Cookies["session_id"]);
+            }
+
+        }
 
     }
 }
