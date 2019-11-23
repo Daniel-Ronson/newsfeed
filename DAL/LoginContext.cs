@@ -26,33 +26,37 @@ namespace News.Models
             return new MySqlConnection(ConnectionString);
         }
 
-        public bool CheckCredentials(string email, string password)
+        public int CheckCredentials(string email, string password)
         {
-            using(MySqlConnection conn = getConnection())
+            using (MySqlConnection conn = getConnection())
             {
                 //CookiesController newCookie = new CookiesController();
                 MD5 md5Hash = MD5.Create();
-                bool ReturnData;
+                // bool ReturnData;
                 string hashedPassword = GetMd5Hash(md5Hash, password);
-                string sql = $"SELECT  email, password, username FROM user WHERE email = '{email}' AND password = '{hashedPassword}'";
-
+                string sql = $"SELECT  userid, email, password, username FROM user WHERE email = '{email}' AND password = '{hashedPassword}'";
+                int userId = 0;
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 conn.Open();
+                User Client = new User();
                 try
                 {
-                    MySqlDataReader reader = cmd.ExecuteReader();
-                    reader.Read();
-                    //ReturnData = reader["username"].ToString();
-                    ReturnData = true;                 
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+                    rdr.Read();
+                    userId = Convert.ToInt32(rdr["userid"]);
+                    // Client.UserId = Convert.ToInt32(rdr["userid"]);
+                    //Client.Username = rdr["username"].ToString();
+                    //Client.Email = rdr["email"].ToString();
+
                 }
                 catch
                 {
-                    ReturnData = false;
-
-                   // ReturnData = "User Does not Exist";
+                    //ReturnData = false;
+                    userId = 0;
+                    // ReturnData = "User Does not Exist";
                 }
                 conn.Close();
-                return ReturnData;
+                return userId;
 
             }
         }
@@ -101,8 +105,6 @@ namespace News.Models
             {
 
                 string sql = $"INSERT INTO user(username, password, email) VALUES('{username}', '{password}', '{email}')";
-                //   string sql = $"SELECT  email FROM user WHERE email = {email}";
-
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 conn.Open();
                 try
@@ -119,11 +121,33 @@ namespace News.Models
 
                 return welcomeStatement;
             }
+        }
+        public string AddSession(int userid, string sessionid)
+        {
+            using (MySqlConnection conn = getConnection())
+            {
+                string returnVal;
+                string format = "yyyy-MM-dd HH:mm:ss";
+                string date = DateTime.Now.ToString(format);
+                string sql = $"INSERT INTO session(userid, sessionid,date) VALUES({userid},'{sessionid}','{date}')";
 
-            
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                conn.Open();
 
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    returnVal = "Success";
+                }
+                catch
+                {
+                    returnVal = "There is an existing session";
+                }
+                conn.Close();
+                return returnVal;
             }
 
 
+        }
     }
 }
