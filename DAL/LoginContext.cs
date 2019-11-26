@@ -51,7 +51,6 @@ namespace News.Models
                 }
                 catch
                 {
-                    //ReturnData = false;
                     userId = 0;
                     // ReturnData = "User Does not Exist";
                 }
@@ -129,7 +128,7 @@ namespace News.Models
                 string returnVal;
                 string format = "yyyy-MM-dd HH:mm:ss";
                 string date = DateTime.Now.ToString(format);
-                string sql = $"INSERT INTO session(userid, sessionid,date) VALUES({userid},'{sessionid}','{date}')";
+                string sql = $"REPLACE INTO session(userid, sessionid,date) VALUES({userid},'{sessionid}','{date}')";
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 conn.Open();

@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using News.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using News.DAL;
 
 namespace News
 {
@@ -39,6 +40,8 @@ namespace News
             services.Add(new ServiceDescriptor(typeof(GenreContext), new GenreContext(Configuration.GetConnectionString("DefaultConnection"))));
             services.Add(new ServiceDescriptor(typeof(ArticleContext), new ArticleContext(Configuration.GetConnectionString("DefaultConnection"))));
             services.Add(new ServiceDescriptor(typeof(UserContext), new UserContext(Configuration.GetConnectionString("DefaultConnection"))));
+            services.Add(new ServiceDescriptor(typeof(CookiesContext), new CookiesContext(Configuration.GetConnectionString("DefaultConnection"))));
+
             services.AddDistributedMemoryCache();
 
             services.AddSession(options =>
