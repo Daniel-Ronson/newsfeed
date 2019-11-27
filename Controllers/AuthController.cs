@@ -10,7 +10,7 @@ using News.Models;
 
 namespace News.Controllers
 {
-    public class FormController : Controller
+    public class AuthController : Controller
     {
         [HttpPost]
         public IActionResult HandleLogin(LoginRegisterForm model)

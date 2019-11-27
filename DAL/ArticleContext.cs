@@ -16,16 +16,16 @@ namespace News.Models
             this.ConnectionString = connectionString;
         }
 
-        private MySqlConnection getConnection()
+        private MySqlConnection GetConnection()
         {
             return new MySqlConnection(ConnectionString);
         }
 
-        private List<String> getGenres(int articleId)
+        private List<String> GetGenres(int articleId)
         {
             List<String> genres = new List<String>();
 
-            using (MySqlConnection con = getConnection())
+            using (MySqlConnection con = GetConnection())
             {
                 MySqlCommand cmd = new MySqlCommand("getGenres", con);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -51,8 +51,8 @@ namespace News.Models
         public List<Article> ListArticles(int websiteId = 3)
         {
 
-            List<Article> LArticle = new List<Article>();
-            using (MySqlConnection con = getConnection())
+            List<Article> articles = new List<Article>();
+            using (MySqlConnection con = GetConnection())
             {
                 MySqlCommand cmd = new MySqlCommand("getArticles", con);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -73,22 +73,22 @@ namespace News.Models
                     w.PublisherUrl = rdr["publisherUrl"].ToString();
                     w.Date = rdr["date"].ToString();
                     w.WebsiteName = rdr["websiteName"].ToString();
-                    w.Genres = getGenres(w.ID);
+                    w.Genres = GetGenres(w.ID);
                     w.Description = rdr["description"].ToString();
 
-                    LArticle.Add(w);
+                    articles.Add(w);
 
                 }
 
                 con.Close();
             }
 
-            return LArticle;
+            return articles;
         }
 
-        public Boolean checkConnection()
+        public Boolean CheckConnection()
         {
-            MySqlConnection con = getConnection();
+            MySqlConnection con = GetConnection();
             try
             {
                 con.Open();

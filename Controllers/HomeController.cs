@@ -18,7 +18,7 @@ namespace News.Controllers
 
             ArticleContext articleContext = HttpContext.RequestServices.GetService(typeof(News.Models.ArticleContext)) as ArticleContext;
 
-            if (!articleContext.checkConnection())
+            if (!articleContext.CheckConnection())
             {
                 return Content("Could not establish connection to the database.");
             }

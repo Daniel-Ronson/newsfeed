@@ -3,7 +3,6 @@ let GENRE_CONTAINER_SELECTOR = '#genres';
 let WEBSITE_CONTAINER_SELECTOR = ".website-container";
 let ARTICLE_SELECTOR = '.card, .mb-3';
 
-
 let App = window.App;
 let FormHandler = App.FormHandler;
 let LOGIN_FORM = new FormHandler(LOGIN_FORM_SELECTOR);
@@ -56,7 +55,7 @@ function websiteClick(element) {
     target.addClass("selected");
 
     $.ajax({
-        url: 'filter/getFilteredArticles',
+        url: 'Filter/GetFilteredArticles',
         data: {websiteId: id},
         success: (function (data) {
             refreshCards(data);
@@ -64,7 +63,7 @@ function websiteClick(element) {
         })
     });
     $.ajax({
-        url: 'filter/getFilteredGenres',
+        url: 'Filter/GetFilteredGenres',
         data: {websiteId: id},
         success: (data => refreshGenres(data))
     });

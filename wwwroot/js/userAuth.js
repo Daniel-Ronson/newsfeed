@@ -7,6 +7,7 @@ let LOGOUT_BUTTON_SELECTOR = '#logout-btn';
 
 let $response = $(REGISTER_RESPONSE_SELECTOR);
 let userLoggedIn = false;
+let userId = -1;
 
 /**
  * Registers user in DB
@@ -14,32 +15,41 @@ let userLoggedIn = false;
  */
 function registerUser(data) {
     $response.text("");
+    let email = data.RegisterEmail;
     $.ajax({
         type: 'POST',
-        url: '/Form/HandleRegister',
+        url: 'Auth/HandleRegister',
         data: { model: data },
-        success:function(data) {
+        success: function(data) {
             $response.text(data);
             if (data === "") {
                 toggleLogin();
+                getUserId(email);
             }
-
         },
         error:function(){
             $response.text('An error occured')
         }
     });
-    //
-    // if (data.password !== data.RegisterPasswordCheck) {
-    //     $response.text("Passwords don't match!");
-    // } else if (userDS.emailMap[data.email]) {
-    //     $response.text("Email already in use");
-    // } else {
-    //     delete data.passwordCheck;
-    //     userDS.add(data.email, data);
-    //     $(REGISTER_MODAL_SELECTOR).modal('hide');
-    //     toggleLogin(data.email);
-    // }
+}
+
+function getUserId(email, fn=null) {
+    $.ajax({
+        type: 'POST',
+        url: 'User/GetUserId',
+        data: { email: email },
+        success: function(data) {
+            if (data !== -1) {
+                userId = data;
+                if (fn) {
+                    fn(userId);
+                }
+            }
+        },
+        error:function(){
+            alert('An error occured');
+        }
+    });
 }
 
 /**
@@ -50,7 +60,7 @@ function authUser(data) {
     $response.text("");
     $.ajax({
         type: 'POST',
-        url: '/Form/HandleLogin',
+        url: 'Auth/HandleLogin',
         data: { model: data },
         success:function(data) {
             $response.text(data);
@@ -62,10 +72,11 @@ function authUser(data) {
             $response.text('An error occured')
         }
     });
-    
+    getUserId(data.LoginUserEmail, getUserFavourites);
 }
 
 function logout() {
+    $(FAVOURITES_SELECTOR + " ul").empty();
     toggleLogin();
 }
 
@@ -81,6 +92,7 @@ function toggleLogin() {
             $(SIGNUP_BUTTON_SELECTOR).slideDown();
         });
         $(FAVOURITES_SELECTOR).parent().fadeOut();
+        userId = -1;
     } else {
         $(LOGIN_BUTTON_SELECTOR).slideUp();
         $(SIGNUP_BUTTON_SELECTOR).slideUp(() => {
