@@ -12,50 +12,48 @@ namespace News.Controllers
 {
     public class FormController : Controller
     {
-        [HttpPost, ValidateAntiForgeryToken]
-        public IActionResult Index(LoginRegisterForm model)
+        [HttpPost]
+        public IActionResult HandleLogin(LoginRegisterForm model)
         {
-            return model.LoginPassword != null ? HandleLogin(model) : HandleRegister(model);
+            LoginContext context =
+                HttpContext.RequestServices.GetService(typeof(News.Models.LoginContext)) as LoginContext;
+            var userExists = context.CheckCredentials(model.LoginUserEmail, model.LoginPassword);
+
+            return Content(!userExists ? "User not found or password is incorrect" : "");
         }
 
-        private IActionResult HandleLogin(LoginRegisterForm model)
+        [HttpPost]
+        public IActionResult HandleRegister(LoginRegisterForm model)
         {
-            
             LoginContext context = HttpContext.RequestServices.GetService(typeof(News.Models.LoginContext)) as LoginContext;
-            var test = context.CheckCredentials(model.LoginUserEmail, model.LoginPassword);
-
-
-            return Content($"{test}");
-            //return Content($"LoginForm!" +
-            //    $"{model.LoginUserEmail}" +
-            //    $"{model.LoginPassword}");
-        }
-
-        private IActionResult HandleRegister(LoginRegisterForm model)
-        {
-            if (model.RegisterPassword == model.RegisterPasswordCheck)
+        
+            if (model.RegisterPassword != model.RegisterPasswordCheck)
             {
-                string hashed = Hashing(model.RegisterPassword);
-                LoginContext context = HttpContext.RequestServices.GetService(typeof(News.Models.LoginContext)) as LoginContext;
-                string result = context.AddUser(model.RegisterEmail, hashed, model.RegisterUsername, model.RegisterPasswordCheck);
-                return Content($"{result}");
-
+                return Content("Passwords don't match!");
             }
 
-            return Content($"RegisterForm!");
+            if (context.CheckEmail(model.RegisterEmail))
+            {
+                return Content("Email already in use");
+            }
 
+            string hashed = Hashing(model.RegisterPassword);
+            string result = context.AddUser(model.RegisterEmail, hashed, model.RegisterUsername,
+                model.RegisterPasswordCheck);
+            
+            return Content($"{result}");
         }
-         private string Hashing(string password)
+
+        private string Hashing(string password)
         {
             string hashed;
             MD5 md5Hash = MD5.Create();
             hashed = GetMd5Hash(md5Hash, password);
             return hashed;
-            
-            }
+        }
+
         static string GetMd5Hash(MD5 md5Hash, string input)
         {
-
             // Convert the input string to a byte array and compute the hash.
             byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
 
@@ -73,7 +71,5 @@ namespace News.Controllers
             // Return the hexadecimal string.
             return sBuilder.ToString();
         }
-
-
     }
 }

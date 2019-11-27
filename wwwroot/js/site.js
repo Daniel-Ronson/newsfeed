@@ -2,6 +2,13 @@
 let GENRE_CONTAINER_SELECTOR = '#genres';
 let WEBSITE_CONTAINER_SELECTOR = ".website-container";
 let ARTICLE_SELECTOR = '.card, .mb-3';
+
+
+let App = window.App;
+let FormHandler = App.FormHandler;
+let LOGIN_FORM = new FormHandler(LOGIN_FORM_SELECTOR);
+let SIGNUP_FORM = new FormHandler(SIGNUP_FORM_SELECTOR);
+
 let loginModal = $('#login-modal');
 
 $('#settings_dropdown').click(function (e) {
@@ -12,10 +19,10 @@ $('#settings_dropdown').click(function (e) {
 $(function () {
     $(FAVOURITES_TOGGLE_SELECTOR).click(function () {
         toggleFavourites();
-    })
-    $("#login-form").submit((data) => {
-        console.log(data);
-    })
+    });
+  
+    LOGIN_FORM.addSubmitHandler(authUser);
+    SIGNUP_FORM.addSubmitHandler(registerUser);
 });
 
 

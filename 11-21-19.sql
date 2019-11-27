@@ -190,7 +190,7 @@ DROP TABLE IF EXISTS `user`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `user` (
   `userid` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(60) NOT NULL,
+  `username` varchar(60) NOT NULL UNIQUE,
   `password` varchar(128) NOT NULL,
   `email` varchar(220) NOT NULL,
   PRIMARY KEY (`userid`),

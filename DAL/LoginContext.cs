@@ -24,27 +24,51 @@ namespace News.Models
             return new MySqlConnection(ConnectionString);
         }
 
-        public string CheckCredentials(string email, string password)
+        public bool CheckCredentials(string email, string password)
         {
+            string test = null;
+            
             using(MySqlConnection conn = getConnection())
             {
                 MD5 md5Hash = MD5.Create();
                 
                 string hashedPassword = GetMd5Hash(md5Hash, password);
                 string sql = $"SELECT  email, password, username FROM user WHERE email = '{email}' AND password = '{hashedPassword}'";
-             //   string sql = $"SELECT  email FROM user WHERE email = {email}";
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 conn.Open();
 
                 MySqlDataReader reader = cmd.ExecuteReader();
-                reader.Read();
-                string test = reader["username"].ToString();
-                conn.Close();
-                
-                return test;
+                while (reader.Read())
+                {
+                    test = reader["username"].ToString();
+                }
 
+                conn.Close();
             }
+            return test != null;
+        }
+        
+        public bool CheckEmail(string email)
+        {
+            string emailExists = null;
+            
+            using(MySqlConnection conn = getConnection())
+            {
+                string sql = $"SELECT email FROM user WHERE email = '{email}'";
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                conn.Open();
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    emailExists = reader["email"].ToString();
+                }
+
+                conn.Close();
+            }
+            return emailExists != null;
         }
         static string GetMd5Hash(MD5 md5Hash, string input)
         {
@@ -91,7 +115,6 @@ namespace News.Models
             {
 
                 string sql = $"INSERT INTO user(username, password, email) VALUES('{username}', '{password}', '{email}')";
-                //   string sql = $"SELECT  email FROM user WHERE email = {email}";
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 conn.Open();
@@ -101,13 +124,12 @@ namespace News.Models
                 }
                 catch
                 {
-                    string error = "Username already being used";
+                    string error = "Username already in use";
                     return error;
                 }
-                string welcomeStatement = "Welcome" + "{username}";
                 conn.Close();
 
-                return welcomeStatement;
+                return "";
             }
 
             
