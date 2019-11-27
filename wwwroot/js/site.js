@@ -8,9 +8,13 @@ $('#settings_dropdown').click(function (e) {
    // e.preventDefault();
     e.stopPropagation();
 });
+
 $(function () {
     $(FAVOURITES_TOGGLE_SELECTOR).click(function () {
         toggleFavourites();
+    })
+    $("#login-form").submit((data) => {
+        console.log(data);
     })
 });
 

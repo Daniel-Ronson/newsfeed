@@ -22,7 +22,7 @@ namespace News.Controllers
         {
             
             LoginContext context = HttpContext.RequestServices.GetService(typeof(News.Models.LoginContext)) as LoginContext;
-           string test =  context.CheckCredentials(model.LoginUserEmail, model.LoginPassword);
+            var test = context.CheckCredentials(model.LoginUserEmail, model.LoginPassword);
 
 
             return Content($"{test}");
@@ -45,7 +45,7 @@ namespace News.Controllers
             return Content($"RegisterForm!");
 
         }
-         public string Hashing(string password)
+         private string Hashing(string password)
         {
             string hashed;
             MD5 md5Hash = MD5.Create();
