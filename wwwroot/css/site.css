@@ -242,3 +242,8 @@ footer {
     text-overflow: ellipsis;
     overflow: hidden;
 }
+
+.email-text {
+    color: #bdc3c7;
+    font-size: 1.1rem;
+}

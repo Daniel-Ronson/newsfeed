@@ -1,7 +1,10 @@
 ﻿@model News.Models.LoginRegisterForm
 
 <nav class="navbar navbar-inverse navbar-embossed navbar-expand-lg 
-            d-flex flex-row justify-content-end align-items-center" role="navigation">
+            d-flex flex-row justify-content-between align-items-center" role="navigation">
+    <div class="ml-3">
+        <div class="email-text" id="email"></div>
+    </div>
     <div class="d-flex justify-content-between mr-2">
         <div class="dropdown">
             <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -13,11 +16,11 @@
                 <input type="button" value="Profile" class="dropdown-item" onclick="location.href = '@Url.Action("Index", "Profile")'"/>
             </div>
         </div>
-        <button id="logout-btn" class="btn btn-default ml-3" type="button" 
+        <button id="logout-btn" class="btn btn-default ml-3" type="button"
                 onclick="logout()"
                 style="display: none">
-                    Logout
-                </button>
+            Logout
+        </button>
         <button id="login-btn" class="btn btn-default ml-3" type="button"
                 data-type="Login"
                 data-toggle="modal"

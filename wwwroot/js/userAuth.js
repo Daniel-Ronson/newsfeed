@@ -4,6 +4,7 @@ let REGISTER_RESPONSE_SELECTOR = '#response';
 let LOGIN_BUTTON_SELECTOR = '#login-btn';
 let SIGNUP_BUTTON_SELECTOR = '#signup-btn';
 let LOGOUT_BUTTON_SELECTOR = '#logout-btn';
+let EMAIL_SELECTOR = '#email';
 
 let $response = $(REGISTER_RESPONSE_SELECTOR);
 let userLoggedIn = false;
@@ -25,6 +26,7 @@ function registerUser(data) {
             if (data === "") {
                 toggleLogin();
                 getUserId(email);
+                $(EMAIL_SELECTOR).text("Welcome, " + email);
             }
         },
         error:function(){
@@ -58,6 +60,7 @@ function getUserId(email, fn=null) {
  */
 function authUser(data) {
     $response.text("");
+    let email = data.LoginUserEmail;
     $.ajax({
         type: 'POST',
         url: 'Auth/HandleLogin',
@@ -66,13 +69,14 @@ function authUser(data) {
             $response.text(data);
             if (data === "") {
                 toggleLogin();
+                $(EMAIL_SELECTOR).text("Welcome, " + email);
             }
         },
         error:function(){
             $response.text('An error occured')
         }
     });
-    getUserId(data.LoginUserEmail, getUserFavourites);
+    getUserId(email, getUserFavourites);
 }
 
 function logout() {

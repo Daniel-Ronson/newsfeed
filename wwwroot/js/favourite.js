@@ -2,7 +2,7 @@
 let FAVOURITES_TOGGLE_SELECTOR = "#toggleFav";
 
 let favourites = [];
-let degrees = 0;
+let degrees = 0; // Keeps track of list-icon rotation
 
 function getUserFavourites(userId) {
     $.ajax({
