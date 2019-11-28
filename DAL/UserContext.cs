@@ -128,7 +128,7 @@ namespace News.Models
             return userId;
         }
 
-        public Boolean checkConnection()
+        public bool checkConnection()
         {
             MySqlConnection con = getConnection();
             try

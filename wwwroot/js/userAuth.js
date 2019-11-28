@@ -77,6 +77,7 @@ function authUser(data) {
 
 function logout() {
     $(FAVOURITES_SELECTOR + " ul").empty();
+    favourites = [];
     toggleLogin();
 }
 

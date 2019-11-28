@@ -17,8 +17,8 @@ namespace News.Controllers
         {
             HttpContext.Session.SetInt32("websiteId", websiteId);
 
-            ArticleContext context = HttpContext.RequestServices.GetService(typeof(News.Models.ArticleContext)) as ArticleContext;
-            var articles = context.ListArticles(websiteId);
+            ArticleContext context = HttpContext.RequestServices.GetService(typeof(ArticleContext)) as ArticleContext;
+            var articles = context.GetAllArticles(websiteId);
 
             articles = articles.OrderByDescending(a => a.Date).ToList();
 
@@ -31,11 +31,20 @@ namespace News.Controllers
         {
             HttpContext.Session.SetInt32("websiteId", websiteId);
 
-            GenreContext genreContext = HttpContext.RequestServices.GetService(typeof(News.Models.GenreContext)) as GenreContext;
+            GenreContext genreContext = HttpContext.RequestServices.GetService(typeof(GenreContext)) as GenreContext;
 
             ViewData["genres"] = genreContext.ListGenres(websiteId);
 
             return PartialView("_Genres");
+        }
+        [HttpPost]
+        public IActionResult GetArticles(List<int> articleIds)
+        {
+            ArticleContext context = HttpContext.RequestServices.GetService(typeof(ArticleContext)) as ArticleContext;
+
+            var articles = context.GetArticles(articleIds);
+
+            return Ok(articles);
         }
     }
 }

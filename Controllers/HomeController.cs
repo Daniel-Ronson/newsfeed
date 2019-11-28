@@ -23,7 +23,7 @@ namespace News.Controllers
                 return Content("Could not establish connection to the database.");
             }
             
-            ViewData["articles"] = articleContext.ListArticles(websiteid).OrderByDescending(a => a.Date).ToList();
+            ViewData["articles"] = articleContext.GetAllArticles(websiteid).OrderByDescending(a => a.Date).ToList();
 
             GenreContext genreContext = HttpContext.RequestServices.GetService(typeof(News.Models.GenreContext)) as GenreContext;
             ViewData["genres"] = genreContext.ListGenres(websiteid);

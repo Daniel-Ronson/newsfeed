@@ -9,21 +9,32 @@ function getUserFavourites(userId) {
         type: 'POST',
         url: 'User/GetFavourites',
         data: { userId: userId },
-        success: function(data) {
-            if (data) {
-                for (let fav in data) {
-                    let id = data[fav]
-                    if (!favourites.includes(id)) {
-                        favourites.push(id);
-                        addFavouriteElement(id);
+        success: function(articleIds) {
+            if (articleIds) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'Filter/GetArticles',
+                    data: {articleIds: articleIds},
+                    success: function(articles) {
+                        for (let i in articles) {
+                            let article = articles[i];
+                            if (!favourites.includes(article.id)) {
+                                favourites.push(article.id);
+                                addFavouriteElement(article.id, article.title, article.websiteName, article.websiteUrl);
+                            }
+                        }
+                    },
+                    error: function() {
+                        alert("Cannot get favourite articles");
                     }
-                }
+                })
+               
             } else {
                 alert("Cannot get user favourites");
             }
         },
         error:function(){
-            alert("Cannot add favourite");
+            alert("Cannot find favourites");
         }
     });
 }
@@ -77,7 +88,8 @@ function addFavourite(id) {
         data: { userId: userId, articleId: id },
         success: function(data) {
             if (data) {
-                addFavouriteElement(id);
+                let [title, website, url] = getArticleData(id);
+                addFavouriteElement(id, title, website, url);
             } else {
                 alert("Cannot add favourite");
             }
@@ -119,12 +131,15 @@ function removeFavourite(id) {
 
 }   
 
-function addFavouriteElement(id) {
+function getArticleData(id) {
     let body = $('#' + id).children('.row').children();
     let title = body.children('a').children().text();
     let website = body.children('.card-subtitle').text();
     let url = body.children('a').attr('href');
+    return [title, website, url];
+}
 
+function addFavouriteElement(id, title, website, url) {
     toggleIconSelected(id);
 
     let li = $('<li></li>', {

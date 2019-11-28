@@ -44,13 +44,13 @@ namespace News.Models
 
                 con.Close();
             }
+
             return genres;
         }
 
 
-        public List<Article> ListArticles(int websiteId = 3)
+        public List<Article> GetAllArticles(int websiteId = 3)
         {
-
             List<Article> articles = new List<Article>();
             using (MySqlConnection con = GetConnection())
             {
@@ -77,7 +77,38 @@ namespace News.Models
                     w.Description = rdr["description"].ToString();
 
                     articles.Add(w);
+                }
 
+                con.Close();
+            }
+
+            return articles;
+        }
+
+        public List<Article> GetArticles(List<int> articleIds)
+        {
+            List<Article> articles = new List<Article>();
+            using (MySqlConnection con = GetConnection())
+            {
+                var result = String.Join(", ", articleIds.ToArray());
+                string sql =
+                    $"SELECT a.articleId, title, a.url as websiteUrl, websiteName FROM article a INNER JOIN website w ON a.websiteid=w.websiteid WHERE a.articleid in ({result})";
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+
+                con.Open(); //open db connection
+
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                //while loop
+                while (rdr.Read())
+                {
+                    Article w = new Article();
+                    w.ID = Convert.ToInt32(rdr["articleid"]);
+                    w.Title = rdr["title"].ToString();
+                    w.WebsiteUrl = rdr["websiteUrl"].ToString();
+                    w.WebsiteName = rdr["websiteName"].ToString();
+
+                    articles.Add(w);
                 }
 
                 con.Close();
