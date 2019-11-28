@@ -4,6 +4,7 @@
 -- ------------------------------------------------------
 -- Server version	8.0.15
 
+use news;
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -160,18 +161,18 @@ UNLOCK TABLES;
 -- Table structure for table `session`
 --
 
+use news;
 DROP TABLE IF EXISTS `session`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `session` (
   `userid` int(11) NOT NULL,
-  `sessionid` varchar(32) NOT NULL,
+  `sessionid` varchar(36) NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`userid`),
   CONSTRAINT `session_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 --
 -- Dumping data for table `session`
 --
