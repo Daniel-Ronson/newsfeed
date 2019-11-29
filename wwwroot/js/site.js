@@ -2,6 +2,8 @@
 let GENRE_CONTAINER_SELECTOR = '#genres';
 let WEBSITE_CONTAINER_SELECTOR = ".website-container";
 let ARTICLE_SELECTOR = '.card, .mb-3';
+let FOCUS_SWITCH_SELECTOR = "#focus-switch";
+let FOCUS_CONTAINER_SELECTOR = '#focus-container';
 
 let App = window.App;
 let FormHandler = App.FormHandler;
@@ -22,8 +24,21 @@ $(function () {
   
     LOGIN_FORM.addSubmitHandler(authUser);
     SIGNUP_FORM.addSubmitHandler(registerUser);
+
+    $(FOCUS_SWITCH_SELECTOR).bootstrapSwitch();
+    $(FOCUS_SWITCH_SELECTOR).bootstrapSwitch('onSwitchChange', function (e, data) {
+        toggleFocusMode(data);
+    });
+    
 });
 
+function toggleFocusMode(data) {
+    if (data) {
+        $(FOCUS_CONTAINER_SELECTOR).fadeOut();
+    } else {
+        $(FOCUS_CONTAINER_SELECTOR).fadeIn();
+    }
+}
 
 /**
  * Handles clicks on genres. Adds visual cue of selected state and filters genres.
