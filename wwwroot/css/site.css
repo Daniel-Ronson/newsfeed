@@ -13,21 +13,26 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 
 body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    padding-top: 1rem;
     background-color: var(--color-midnight-blue);
 }
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+/* DROPDOWN */
+.dropdown-menu {
+    padding: 0.3rem 0.5rem;
+    background-color: var(--color-peter-river);
+    min-width: 160px;
 }
 
-.tag-btn-group > .tag-btn > input[type="checkbox"] {
-    clip: rect(0, 0, 0, 0);
-    position: absolute;
+.dropdown label {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 2.5;
+    margin-bottom: 0;
+}
+
+.bootstrap-switch {
+    display: block;
 }
 
 /* WEBSITES */

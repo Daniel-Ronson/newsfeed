@@ -62,7 +62,7 @@ function toggleTheme(data) {
         document.documentElement.style.setProperty('--color-peter-river', '#3498DB');
         document.documentElement.style.setProperty('--color-belize-hole', '#2980B9');
         document.documentElement.style.setProperty('--color-dark-gray', '#6c757d');
-        $(EMAIL_SELECTOR).attr('style', 'color: gray;')
+        $(EMAIL_SELECTOR).attr('style', 'color: lightgray;')
 
     } else {
         document.documentElement.style.setProperty('--color-wet-asphalt', '#ECF0F1');
@@ -72,7 +72,7 @@ function toggleTheme(data) {
         document.documentElement.style.setProperty('--color-peter-river', '#E67E22');
         document.documentElement.style.setProperty('--color-belize-hole', '#D35400');
         document.documentElement.style.setProperty('--color-dark-gray', '#a3a7ab');
-        $(EMAIL_SELECTOR).attr('style', 'color: lightgray;')
+        $(EMAIL_SELECTOR).attr('style', 'color: gray;')
 
     }
 }
