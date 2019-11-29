@@ -4,6 +4,7 @@ let WEBSITE_CONTAINER_SELECTOR = ".website-container";
 let ARTICLE_SELECTOR = '.card, .mb-3';
 let FOCUS_SWITCH_SELECTOR = "#focus-switch";
 let FOCUS_CONTAINER_SELECTOR = '#focus-container';
+let THEME_SWITCH_SELECTOR = '#theme-switch';
 
 let App = window.App;
 let FormHandler = App.FormHandler;
@@ -30,6 +31,13 @@ $(function () {
         toggleFocusMode(data);
     });
     
+    $(THEME_SWITCH_SELECTOR).bootstrapSwitch();
+    $(THEME_SWITCH_SELECTOR).bootstrapSwitch('onText', 'Dark');
+    $(THEME_SWITCH_SELECTOR).bootstrapSwitch('offText', 'Light');
+    $(THEME_SWITCH_SELECTOR).bootstrapSwitch('onSwitchChange', function (e, data) {
+        toggleTheme(data);
+    });
+    
 });
 
 function toggleFocusMode(data) {
@@ -37,6 +45,30 @@ function toggleFocusMode(data) {
         $(FOCUS_CONTAINER_SELECTOR).fadeOut();
     } else {
         $(FOCUS_CONTAINER_SELECTOR).fadeIn();
+    }
+}
+
+function toggleTheme(data) {
+    if (data) {
+        document.documentElement.style.setProperty('--color-wet-asphalt', '#34495E');
+        document.documentElement.style.setProperty('--color-midnight-blue', '#2C3E50');
+        document.documentElement.style.setProperty('--color-turquoise', '#1ABC9C');
+        document.documentElement.style.setProperty('--color-green-sea', '#16A085');
+        document.documentElement.style.setProperty('--color-peter-river', '#3498DB');
+        document.documentElement.style.setProperty('--color-belize-hole', '#2980B9');
+        document.documentElement.style.setProperty('--color-dark-gray', '#6c757d');
+        $(EMAIL_SELECTOR).attr('style', 'color: gray;')
+
+    } else {
+        document.documentElement.style.setProperty('--color-wet-asphalt', '#ECF0F1');
+        document.documentElement.style.setProperty('--color-midnight-blue', '#BDC3C7');
+        document.documentElement.style.setProperty('--color-turquoise', '#F1C40F');
+        document.documentElement.style.setProperty('--color-green-sea', '#F39C12');
+        document.documentElement.style.setProperty('--color-peter-river', '#E67E22');
+        document.documentElement.style.setProperty('--color-belize-hole', '#D35400');
+        document.documentElement.style.setProperty('--color-dark-gray', '#a3a7ab');
+        $(EMAIL_SELECTOR).attr('style', 'color: lightgray;')
+
     }
 }
 

@@ -9,7 +9,9 @@
                 </button>
                 <div class="dropdown-menu" id="settings_dropdown" aria-labelledby="dropdownMenuButton">
                     <input id="focus-switch" type="checkbox" name="focus-mode" data-size="large">
-                    <label for="focus-switch">Focus mode</label>
+                    <label for="focus-switch">Focus mode</label> 
+                    <input id="theme-switch" type="checkbox" name="focus-mode" checked data-size="large">
+                    <label for="theme-switch">Change theme</label>
 
                     <div class="dropdown-divider"></div>
                     <input type="button" value="Profile" class="dropdown-item" onclick="location.href = '@Url.Action("Index", "Profile")'"/>
@@ -102,7 +104,7 @@
                         <input asp-for="LoginPassword" type="password" class="form-control" required>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary ml-2 btn-lg">Login</button>
                     </div>
                 </form>
@@ -125,7 +127,7 @@
                         <input asp-for="RegisterPasswordCheck" type="password" class="form-control" required>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary ml-2 btn-lg">Sign up</button>
                     </div>
                 </form>
