@@ -26,6 +26,11 @@ $(function () {
     LOGIN_FORM.addSubmitHandler(authUser);
     SIGNUP_FORM.addSubmitHandler(registerUser);
 
+    loginModal.on('show.bs.modal', function (e) {
+        console.log('test');
+        responseText("");
+    });
+
     $(FOCUS_SWITCH_SELECTOR).bootstrapSwitch();
     $(FOCUS_SWITCH_SELECTOR).bootstrapSwitch('onSwitchChange', function (e, data) {
         toggleFocusMode(data);

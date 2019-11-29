@@ -205,6 +205,32 @@ body {
     cursor: pointer;
 }
 
+/* MODAL */
+
+.modal-content {
+    background-color: var(--color-wet-asphalt);
+}
+
+.login-form .login-field-icon {
+    color: #bfc9ca;
+    font-size: 16px;
+    position: absolute;
+    right: 15px;
+    top: 3px;
+    transition: all .25s;
+}
+
+.login-form {
+    background-color: var(--color-light-gray);
+}
+
+.response {
+    background-color: var(--color-light-gray);
+    padding: 12px 12px 10px;
+    position: relative;
+    border-radius: 6px;
+}
+
 /* UTIL */
 .divider-sm, .divider-md, .divider-lg {
     height: 3px;
@@ -334,3 +360,4 @@ a:hover {
     background: var(--color-turquoise);
     border-color: var(--color-midnight-blue);
 }
+

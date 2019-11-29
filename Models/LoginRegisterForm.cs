@@ -8,17 +8,17 @@ namespace News.Models
 {
     public class LoginRegisterForm
     {
-        [DisplayName("Username / Email")]
+        [DisplayName("")]
         public string LoginUserEmail { get; set; }
-        [DisplayName("Password")]
+        [DisplayName("")]
         public string LoginPassword { get; set; }
-        [DisplayName("Email")]
+        [DisplayName("")]
         public string RegisterEmail { get; set; }
-        [DisplayName("Username")]
+        [DisplayName("")]
         public string RegisterUsername { get; set; }
-        [DisplayName("Password")]
+        [DisplayName("")]
         public string RegisterPassword { get; set; }
-        [DisplayName("Repeat password")]
+        [DisplayName("")]
         public string RegisterPasswordCheck { get; set; }
     }
 }

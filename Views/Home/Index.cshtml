@@ -86,52 +86,52 @@
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="login-modal-title">Login</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
             <div class="modal-body">
-                <form id="login-form">
+                <form id="login-form" class="login-form">
                     <div class="form-group">
-                        <label asp-for="LoginUserEmail" class="col-form-label"></label>
-                        <input asp-for="LoginUserEmail" type="text" class="form-control" required
+                        <label asp-for="LoginUserEmail" class="login-field-icon fui-mail"></label>
+                        <input asp-for="LoginUserEmail" type="text" class="form-control login-field" required
+                               placeholder="Enter your email"
                                pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b">
                     </div>
                     <div class="form-group">
-                        <label asp-for="LoginPassword" class="col-form-label"></label>
-                        <input asp-for="LoginPassword" type="password" class="form-control" required>
+                        <label asp-for="LoginPassword" class="login-field-icon fui-lock"></label>
+                        <input asp-for="LoginPassword" type="password" class="form-control login-field" required
+                               placeholder="Password">
                     </div>
-                    <div class="d-flex justify-content-end">
+                    <div class="d-flex flex-column justify-content-end">
+                        <button type="submit" class="btn btn-primary mb-2 btn-lg">Login</button>
                         <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary ml-2 btn-lg">Login</button>
                     </div>
                 </form>
-                <form id="signup-form" style="display: none">
+                <form id="signup-form" class="login-form" style="display: none">
                     <div class="form-group">
-                        <label asp-for="RegisterEmail" class="col-form-label">Email</label>
-                        <input asp-for="RegisterEmail" type="text" class="form-control" required
-                               pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b">
+                        <label asp-for="RegisterEmail" class="login-field-icon fui-mail"></label>
+                        <input asp-for="RegisterEmail" type="text" class="form-control login-field" required
+                               pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b"
+                               placeholder="Enter your email">
                     </div>
                     <div class="form-group">
-                        <label asp-for="RegisterUsername" class="col-form-label">Username</label>
-                        <input asp-for="RegisterUsername" type="text" class="form-control" required>
+                        <label asp-for="RegisterUsername" class="login-field-icon fui-user"></label>
+                        <input asp-for="RegisterUsername" type="text" class="form-control login-field" required
+                               placeholder="Enter your username">
                     </div>
                     <div class="form-group">
-                        <label asp-for="RegisterPassword" class="col-form-label">Password</label>
-                        <input asp-for="RegisterPassword" type="password" class="form-control" required>
+                        <label asp-for="RegisterPassword" class="login-field-icon fui-lock"></label>
+                        <input asp-for="RegisterPassword" type="password" class="form-control login-field" required
+                               placeholder="Password">
                     </div>
                     <div class="form-group">
-                        <label asp-for="RegisterPasswordCheck" class="col-form-label">Repeat password</label>
-                        <input asp-for="RegisterPasswordCheck" type="password" class="form-control" required>
+                        <label asp-for="RegisterPasswordCheck" class="login-field-icon fui-lock"></label>
+                        <input asp-for="RegisterPasswordCheck" type="password" class="form-control login-field" required
+                               placeholder="Validate password">
                     </div>
-                    <div class="d-flex justify-content-end">
+                    <div class="d-flex flex-column justify-content-end">
+                        <button type="submit" class="btn btn-primary mb-2 btn-lg">Sign up</button>
                         <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary ml-2 btn-lg">Sign up</button>
                     </div>
                 </form>
-                <p id="response"></p>
+                <p id="response" class="login-form mt-2"></p>
             </div>
         </div>
     </div>

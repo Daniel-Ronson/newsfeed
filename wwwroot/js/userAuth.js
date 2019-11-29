@@ -6,23 +6,34 @@ let SIGNUP_BUTTON_SELECTOR = '#signup-btn';
 let LOGOUT_BUTTON_SELECTOR = '#logout-btn';
 let EMAIL_SELECTOR = '#email';
 
-let $response = $(REGISTER_RESPONSE_SELECTOR);
 let userLoggedIn = false;
 let userId = -1;
+
+function responseText(text) {
+    let $response = $(REGISTER_RESPONSE_SELECTOR);
+
+    if (!text) {
+        $response.text("");
+        $response.hide();
+    } else {
+        $response.text(text);
+        $response.fadeIn();
+    }
+}
 
 /**
  * Registers user in DB
  * @param {object} data Data with fields: [email, password, passwordCheck]
  */
 function registerUser(data) {
-    $response.text("");
+    responseText("");
     let email = data.RegisterEmail;
     $.ajax({
         type: 'POST',
         url: 'Auth/HandleRegister',
         data: { model: data },
         success: function(data) {
-            $response.text(data);
+            responseText(data);
             if (data === "") {
                 toggleLogin();
                 getUserId(email);
@@ -30,7 +41,7 @@ function registerUser(data) {
             }
         },
         error:function(){
-            $response.text('An error occured')
+            responseText('An error occured');
         }
     });
 }
@@ -59,24 +70,24 @@ function getUserId(email, fn=null) {
  * @param {object} data Data with fields: [email, password]
  */
 function authUser(data) {
-    $response.text("");
+    responseText("");
     let email = data.LoginUserEmail;
     $.ajax({
         type: 'POST',
         url: 'Auth/HandleLogin',
         data: { model: data },
         success:function(data) {
-            $response.text(data);
+            responseText(data);
             if (data === "") {
+                getUserId(email, getUserFavourites);
                 toggleLogin();
                 $(EMAIL_SELECTOR).text("Welcome, " + email);
             }
         },
         error:function(){
-            $response.text('An error occured')
+            responseText('An error occured');
         }
     });
-    getUserId(email, getUserFavourites);
 }
 
 function logout() {
