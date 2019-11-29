@@ -1,4 +1,7 @@
-﻿let genres = [];
+﻿let ARTICLE_SELECTOR = '.card, .mb-3';
+let FAVOURITE_SELECTOR = '#favourites ul .todo-done';
+
+let genres = [];
 
 /**
  * Searches articles in currently selected genre (or all). Search is based on summary and title text
@@ -24,13 +27,20 @@ function searchArticles(element) {
         }
         
         toggleElement.call(this, searchableText.includes(queryText) && genreExists);
-        if (!$(this).hasClass("d-none")) {
-        }
     });
 }
 
 function searchFavourites(element) {
-// TODO
+    let favourites = $(FAVOURITE_SELECTOR);
+    
+    let queryText = $(element).val().toLowerCase();
+
+    favourites.each(function () {
+        let title = $(this).children(".todo-content").children('h4').text();
+        let searchableText = title.toLowerCase();
+
+        toggleElement.call(this, searchableText.includes(queryText));
+    });
 }
 
 /**

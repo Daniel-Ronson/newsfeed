@@ -1,7 +1,6 @@
 ﻿let CARD_CONTAINER_SELECTOR = '#articles';
 let GENRE_CONTAINER_SELECTOR = '#genres';
 let WEBSITE_CONTAINER_SELECTOR = ".website-container";
-let ARTICLE_SELECTOR = '.card, .mb-3';
 let FOCUS_SWITCH_SELECTOR = "#focus-switch";
 let FOCUS_CONTAINER_SELECTOR = '#focus-container';
 let THEME_SWITCH_SELECTOR = '#theme-switch';
