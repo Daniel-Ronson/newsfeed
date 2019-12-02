@@ -95,6 +95,10 @@ function logout() {
     favourites = [];
     $(EMAIL_SELECTOR).text('');
     toggleLogin();
+
+    $(ARTICLE_SELECTOR).children(".row").children().children(".icon-selected").each(function () {
+        $(this).removeClass('icon-selected');
+    });
 }
 
 /**

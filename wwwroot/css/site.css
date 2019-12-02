@@ -254,6 +254,7 @@ body {
 
 .selected {
     opacity: 1;
+    background-color: var(--color-turquoise);
 }
 
 .icon-selected {
