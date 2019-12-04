@@ -13,11 +13,12 @@ let SIGNUP_FORM = new FormHandler(SIGNUP_FORM_SELECTOR);
 let loginModal = $('#login-modal');
 
 $('#settings_dropdown').click(function (e) {
-   // e.preventDefault();
     e.stopPropagation();
 });
 
 $(function () {
+    checkCookie();
+    
     $(FAVOURITES_TOGGLE_SELECTOR).click(function () {
         toggleFavourites();
     });
@@ -43,6 +44,34 @@ $(function () {
     });
     
 });
+
+function checkCookie() {
+    $.ajax({
+        type: 'POST',
+        url: 'Cookie/CheckCookie',
+        success:function(data) {
+            if (data === -1) {
+                return;
+            }
+            userId = data;
+            
+            $.ajax({
+                type: 'POST',
+                url: 'User/GetUser',
+                data: {userId: userId},
+                success:function(data) {
+                    let email = data.email;
+                    toggleLogin();
+                    getUserFavourites(userId);
+                    $(EMAIL_SELECTOR).text("Welcome, " + email);
+                }
+            });
+        },
+        error:function(){
+            responseText('An error occured');
+        }
+    })
+}
 
 function toggleFocusMode(data) {
     if (data) {

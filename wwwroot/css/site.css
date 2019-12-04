@@ -353,7 +353,7 @@ a {
     color: var(--color-green-sea);
 }
 
-a:hover {
+a:hover, a:focus {
     color: var(--color-turquoise);
 }
 

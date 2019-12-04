@@ -23,27 +23,38 @@ namespace News.DAL
         //check if session id is in the database
         //return UserId that is related to the sesion id
         //return 0 if the sesion id is not valid
-        public int GetSession(string SessionId)
+        public int GetSession(string sessionId)
         {
-            int UserId;
+            int userId;
             using (MySqlConnection conn = getConnection())
             {
-                string sql = $"SELECT  userid FROM session WHERE sessionid = '{SessionId}'";
+                string sql = $"SELECT userid FROM session WHERE sessionid = '{sessionId}'";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 conn.Open();
                 try
                 {
                     MySqlDataReader rdr = cmd.ExecuteReader();
                     rdr.Read();
-                    UserId = Convert.ToInt32(rdr["userid"]);
+                    userId = Convert.ToInt32(rdr["userid"]);
                 }
                 catch
                 {
-                    UserId = 0;
+                    userId = -1;
                 }
                 conn.Close();
             }
-            return UserId;
+            return userId;
+        }
+        public void DeleteSession(string sessionId)
+        {
+            using (MySqlConnection conn = getConnection())
+            {
+                string sql = $"DELETE FROM session WHERE sessionid = '{sessionId}'";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
         }
     }
 }

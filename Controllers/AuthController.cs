@@ -17,17 +17,15 @@ namespace News.Controllers
         {
             LoginContext context =
                 HttpContext.RequestServices.GetService(typeof(LoginContext)) as LoginContext;
+            
             int userId = context.CheckCredentials(model.LoginUserEmail, model.LoginPassword);
 
-            if (userId != 0)
+            if (userId == 0)
             {
-                string sessionId = HttpContext.Request.Cookies["session_id"];
-                SetCookie();
-                context.AddSession(userId, sessionId);
-                return Content("");
+                return Content("User not found or password is incorrect");
             }
-
-            return Content("User not found or password is incorrect");
+            SetCookie(userId, context);
+            return Content("");
         }
 
         [HttpPost]
@@ -47,10 +45,12 @@ namespace News.Controllers
             }
 
             string hashed = Hashing(model.RegisterPassword);
-            SetCookie();
             string result = context.AddUser(model.RegisterEmail, hashed, model.RegisterUsername,
                 model.RegisterPasswordCheck);
             
+            int userId = context.CheckCredentials(model.RegisterEmail, model.RegisterPassword);
+            SetCookie(userId, context);
+
             return Content($"{result}");
         }
 
@@ -81,26 +81,22 @@ namespace News.Controllers
             // Return the hexadecimal string.
             return sBuilder.ToString();
         }
-        public void SetCookie()
+
+        private void SetCookie(int userId, LoginContext context)
         {
-            string SessionId;
-            if (!HttpContext.Request.Cookies.ContainsKey("session_id"))
-            {
-                SessionId = Guid.NewGuid().ToString();
+            var sessionId = Guid.NewGuid().ToString();
+            SetCookie(sessionId);
+            context.AddSession(userId, sessionId);
+        }
 
-                CookieOptions cookieOptions = new CookieOptions
-                {
-                    Expires = new DateTimeOffset(DateTime.Now.AddDays(1))
-                };
-                HttpContext.Response.Cookies.Append("date_of_creation", DateTime.Now.ToString(), cookieOptions); //set cookie
-                HttpContext.Response.Cookies.Append("session_id", SessionId, cookieOptions); //set cookie
-            }
-
-            else
+        public void SetCookie(string sessionId)
+        {
+            CookieOptions cookieOptions = new CookieOptions
             {
-                DateTime firstRequest = DateTime.Parse(HttpContext.Request.Cookies["date_of_creation"]); //update cookie
-                //todo: update datetime in session table
-            }
+                Expires = new DateTimeOffset(DateTime.Now.AddDays(1))
+            };
+            HttpContext.Response.Cookies.Append("date_of_creation", DateTime.Now.ToString(), cookieOptions); //set cookie
+            HttpContext.Response.Cookies.Append("session_id", sessionId, cookieOptions); //set cookie
 
         }
 

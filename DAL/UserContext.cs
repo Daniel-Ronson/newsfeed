@@ -86,9 +86,8 @@ namespace News.Models
             }
         }
         
-        public User GetUser(int userId = 5)
+        public User GetUser(int userId)
         {
-            userId = 5;
             User user = new User();
             using (MySqlConnection conn = getConnection())
             {
