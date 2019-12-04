@@ -30,6 +30,12 @@ namespace News.Controllers
             UserContext context = HttpContext.RequestServices.GetService(typeof(UserContext)) as UserContext;
             return Ok(context.GetUserId(email));
         }
+        [HttpPost]
+        public IActionResult GetUser(int userId)
+        {
+            UserContext context = HttpContext.RequestServices.GetService(typeof(UserContext)) as UserContext;
+            return Ok(context.GetUser(userId));
+        }
         
         
     }

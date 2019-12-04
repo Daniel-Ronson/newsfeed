@@ -99,6 +99,12 @@ function logout() {
     $(ARTICLE_SELECTOR).children(".row").children().children(".icon-selected").each(function () {
         $(this).removeClass('icon-selected');
     });
+    
+    $.ajax({
+        type: 'POST',
+        url: 'Cookie/RemoveCookie'
+    })
+    
 }
 
 /**

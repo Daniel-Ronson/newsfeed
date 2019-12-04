@@ -10,7 +10,7 @@ function getUserFavourites(userId) {
         url: 'User/GetFavourites',
         data: { userId: userId },
         success: function(articleIds) {
-            if (articleIds) {
+            if (articleIds && articleIds.length !== 0) {
                 $.ajax({
                     type: 'POST',
                     url: 'Filter/GetArticles',
@@ -29,8 +29,6 @@ function getUserFavourites(userId) {
                     }
                 })
                
-            } else {
-                alert("Cannot get user favourites");
             }
         },
         error:function(){
