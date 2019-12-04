@@ -7,24 +7,32 @@ for details on configuring this project to bundle and minify static web assets. 
     --color-belize-hole: #2980B9;
     --color-wet-asphalt: #34495E;
     --color-midnight-blue: #2C3E50;
+    --color-light-gray: #CACFD2;
+    --color-gray: #BDC3C7;
+    --color-dark-gray: #6C757D;
 }
 
 body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    padding-top: 1rem;
     background-color: var(--color-midnight-blue);
 }
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+/* DROPDOWN */
+.dropdown-menu {
+    padding: 0.3rem 0.5rem;
+    background-color: var(--color-peter-river);
+    min-width: 160px;
 }
 
-.tag-btn-group > .tag-btn > input[type="checkbox"] {
-    clip: rect(0, 0, 0, 0);
-    position: absolute;
+.dropdown label {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 2.5;
+    margin-bottom: 0;
+}
+
+.bootstrap-switch {
+    display: block;
 }
 
 /* WEBSITES */
@@ -40,6 +48,7 @@ body {
     padding: .75rem;
     opacity: 0.7;
     transition: .15s;
+    margin: 0.5rem;
 }
 
 .website-container:hover {
@@ -124,7 +133,7 @@ body {
 
 .fav-icon {
     position: absolute;
-    color: var(--gray);
+    color: var(--color-dark-gray);
     right: 1rem;
     top: 1.5rem;
     font-size: 33px;
@@ -200,6 +209,33 @@ body {
 .fui-list:hover {
     cursor: pointer;
 }
+
+/* MODAL */
+
+.modal-content {
+    background-color: var(--color-wet-asphalt);
+}
+
+.login-form .login-field-icon {
+    color: #bfc9ca;
+    font-size: 16px;
+    position: absolute;
+    right: 15px;
+    top: 3px;
+    transition: all .25s;
+}
+
+.login-form {
+    background-color: var(--color-light-gray);
+}
+
+.response {
+    background-color: var(--color-light-gray);
+    padding: 12px 12px 10px;
+    position: relative;
+    border-radius: 6px;
+}
+
 /* UTIL */
 .divider-sm, .divider-md, .divider-lg {
     height: 3px;
@@ -218,6 +254,7 @@ body {
 
 .selected {
     opacity: 1;
+    background-color: var(--color-turquoise);
 }
 
 .icon-selected {
@@ -241,3 +278,92 @@ footer {
     text-overflow: ellipsis;
     overflow: hidden;
 }
+
+.email-text {
+    color: gray;
+    font-size: 1.1rem;
+    margin-left: 0.5rem;
+}
+
+/* THEME */
+.navbar-inverse {
+    background-color: var(--color-wet-asphalt);
+}
+
+.btn-primary {
+    background-color: var(--color-turquoise);
+    background: var(--color-turquoise);
+    transition: 0.2s;
+    filter: brightness(90%);
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+    background-color: var(--color-turquoise)!important;
+    background: var(--color-turquoise)!important;
+    filter: brightness(100%);
+}
+
+.btn-default {
+    background-color: var(--color-gray);
+    background: var(--color-gray);
+    transition: 0.2s;
+    filter: brightness(90%);
+}
+
+.btn-default:hover, .btn-default:active, .btn-default:focus {
+    background-color: var(--color-gray)!important;
+    background: var(--color-gray)!important;
+    filter: brightness(100%);
+}
+
+.btn-info {
+    background-color: var(--color-peter-river);
+    transition: 0.2s;
+    filter: brightness(90%);
+}
+
+.btn-info:hover, .btn-info:focus {
+    background-color: var(--color-peter-river);
+    border-color: var(--color-peter-river);
+    filter: brightness(100%);
+}
+
+.btn-info:active, .show > .dropdown-toggle.btn-info {
+    background: var(--color-belize-hole)!important;
+    border-color: var(--color-belize-hole)!important;
+}
+
+.todo-search {
+    background: var(--color-turquoise);
+}
+
+.todo li.todo-done {
+    color: var(--color-turquoise);
+}
+
+.todo li.todo-done .todo-name {
+    color: var(--color-turquoise);
+}
+
+.todo ul {
+    background-color: var(--color-midnight-blue);
+}
+
+a {
+    color: var(--color-green-sea);
+}
+
+a:hover {
+    color: var(--color-turquoise);
+}
+
+.bootstrap-switch-primary {
+    color: var(--color-turquoise);
+    background-color: var(--color-midnight-blue);
+}
+
+.bootstrap-switch-primary ~ .bootstrap-switch-handle-off:before {
+    background: var(--color-turquoise);
+    border-color: var(--color-midnight-blue);
+}
+

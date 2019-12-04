@@ -1,4 +1,6 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.AspNetCore.Http;
+using MySql.Data.MySqlClient;
+using News.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -6,7 +8,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-
+using System.Web.Mvc;
 
 namespace News.Models
 {
@@ -24,31 +26,59 @@ namespace News.Models
             return new MySqlConnection(ConnectionString);
         }
 
-        public string CheckCredentials(string email, string password)
+        public int CheckCredentials(string email, string password)
         {
-            using(MySqlConnection conn = getConnection())
+            int userId;
+
+            using (MySqlConnection conn = getConnection())
             {
                 MD5 md5Hash = MD5.Create();
-                
                 string hashedPassword = GetMd5Hash(md5Hash, password);
-                string sql = $"SELECT  email, password, username FROM user WHERE email = '{email}' AND password = '{hashedPassword}'";
-             //   string sql = $"SELECT  email FROM user WHERE email = {email}";
+                string sql =
+                    $"SELECT  userid, email, password, username FROM user WHERE email = '{email}' AND password = '{hashedPassword}'";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                conn.Open();
+                try
+                {
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+                    rdr.Read();
+                    userId = Convert.ToInt32(rdr["userid"]);
+                }
+                catch
+                {
+                    userId = 0;
+                }
+
+                conn.Close();
+                return userId;
+            }
+        }
+
+        public bool CheckEmail(string email)
+        {
+            string emailExists = null;
+
+            using (MySqlConnection conn = getConnection())
+            {
+                string sql = $"SELECT email FROM user WHERE email = '{email}'";
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 conn.Open();
 
                 MySqlDataReader reader = cmd.ExecuteReader();
-                reader.Read();
-                string test = reader["username"].ToString();
-                conn.Close();
-                
-                return test;
+                while (reader.Read())
+                {
+                    emailExists = reader["email"].ToString();
+                }
 
+                conn.Close();
             }
+
+            return emailExists != null;
         }
+
         static string GetMd5Hash(MD5 md5Hash, string input)
         {
-
             // Convert the input string to a byte array and compute the hash.
             byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
 
@@ -66,6 +96,7 @@ namespace News.Models
             // Return the hexadecimal string.
             return sBuilder.ToString();
         }
+
         // Verify a hash against a string.
         static bool VerifyMd5Hash(MD5 md5Hash, string input, string hash)
         {
@@ -89,9 +120,8 @@ namespace News.Models
         {
             using (MySqlConnection conn = getConnection())
             {
-
-                string sql = $"INSERT INTO user(username, password, email) VALUES('{username}', '{password}', '{email}')";
-                //   string sql = $"SELECT  email FROM user WHERE email = {email}";
+                string sql =
+                    $"INSERT INTO user(username, password, email) VALUES('{username}', '{password}', '{email}')";
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 conn.Open();
@@ -101,19 +131,39 @@ namespace News.Models
                 }
                 catch
                 {
-                    string error = "Username already being used";
+                    string error = "Username already in use";
                     return error;
                 }
-                string welcomeStatement = "Welcome" + "{username}";
                 conn.Close();
+                return "";
+            }
+        }
+        public string AddSession(int userid, string sessionid)
+        {
+            using (MySqlConnection conn = getConnection())
+            {
+                string returnVal;
+                string format = "yyyy-MM-dd HH:mm:ss";
+                string date = DateTime.Now.ToString(format);
+                string sql = $"REPLACE INTO session(userid, sessionid,date) VALUES({userid},'{sessionid}','{date}')";
 
-                return welcomeStatement;
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                conn.Open();
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    returnVal = "Success";
+                }
+                catch
+                {
+                    returnVal = "There is an existing session";
+                }
+                conn.Close();
+                return returnVal;
             }
 
-            
 
-            }
-
-
+        }
     }
 }

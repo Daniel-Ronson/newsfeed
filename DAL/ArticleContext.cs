@@ -16,16 +16,16 @@ namespace News.Models
             this.ConnectionString = connectionString;
         }
 
-        private MySqlConnection getConnection()
+        private MySqlConnection GetConnection()
         {
             return new MySqlConnection(ConnectionString);
         }
 
-        private List<String> getGenres(int articleId)
+        private List<String> GetGenres(int articleId)
         {
             List<String> genres = new List<String>();
 
-            using (MySqlConnection con = getConnection())
+            using (MySqlConnection con = GetConnection())
             {
                 MySqlCommand cmd = new MySqlCommand("getGenres", con);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -44,15 +44,15 @@ namespace News.Models
 
                 con.Close();
             }
+
             return genres;
         }
 
 
-        public List<Article> ListArticles(int websiteId = 3)
+        public List<Article> GetAllArticles(int websiteId = 3)
         {
-
-            List<Article> LArticle = new List<Article>();
-            using (MySqlConnection con = getConnection())
+            List<Article> articles = new List<Article>();
+            using (MySqlConnection con = GetConnection())
             {
                 MySqlCommand cmd = new MySqlCommand("getArticles", con);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -73,22 +73,53 @@ namespace News.Models
                     w.PublisherUrl = rdr["publisherUrl"].ToString();
                     w.Date = rdr["date"].ToString();
                     w.WebsiteName = rdr["websiteName"].ToString();
-                    w.Genres = getGenres(w.ID);
+                    w.Genres = GetGenres(w.ID);
                     w.Description = rdr["description"].ToString();
 
-                    LArticle.Add(w);
-
+                    articles.Add(w);
                 }
 
                 con.Close();
             }
 
-            return LArticle;
+            return articles;
         }
 
-        public Boolean checkConnection()
+        public List<Article> GetArticles(List<int> articleIds)
         {
-            MySqlConnection con = getConnection();
+            List<Article> articles = new List<Article>();
+            using (MySqlConnection con = GetConnection())
+            {
+                var result = String.Join(", ", articleIds.ToArray());
+                string sql =
+                    $"SELECT a.articleId, title, a.url as websiteUrl, websiteName FROM article a INNER JOIN website w ON a.websiteid=w.websiteid WHERE a.articleid in ({result})";
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+
+                con.Open(); //open db connection
+
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                //while loop
+                while (rdr.Read())
+                {
+                    Article w = new Article();
+                    w.ID = Convert.ToInt32(rdr["articleid"]);
+                    w.Title = rdr["title"].ToString();
+                    w.WebsiteUrl = rdr["websiteUrl"].ToString();
+                    w.WebsiteName = rdr["websiteName"].ToString();
+
+                    articles.Add(w);
+                }
+
+                con.Close();
+            }
+
+            return articles;
+        }
+
+        public Boolean CheckConnection()
+        {
+            MySqlConnection con = GetConnection();
             try
             {
                 con.Open();

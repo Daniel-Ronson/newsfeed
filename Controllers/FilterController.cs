@@ -13,33 +13,12 @@ namespace News.Controllers
 {
     public class FilterController : Controller
     {
-        private static List<String> genres = new List<String>();
-
-        public IActionResult addGenre(string genre)
-        {
-            genres.Add(genre);
-
-            return getFilteredArticles(HttpContext.Session.GetInt32("websiteId").Value);
-        }
-
-        public IActionResult removeGenre(string genre)
-        {
-            genres.Remove(genre);
-
-            return getFilteredArticles(HttpContext.Session.GetInt32("websiteId").Value);
-        }
-
-        public IActionResult getFilteredArticles(int websiteId)
+        public IActionResult GetFilteredArticles(int websiteId)
         {
             HttpContext.Session.SetInt32("websiteId", websiteId);
 
-            ArticleContext context = HttpContext.RequestServices.GetService(typeof(News.Models.ArticleContext)) as ArticleContext;
-            var articles = context.ListArticles(websiteId);
-            
-            if (genres.Count() != 0)
-            {
-                articles = articles.Where(a => genres.Except(a.Genres).Count() < genres.Count()).ToList();
-            }
+            ArticleContext context = HttpContext.RequestServices.GetService(typeof(ArticleContext)) as ArticleContext;
+            var articles = context.GetAllArticles(websiteId);
 
             articles = articles.OrderByDescending(a => a.Date).ToList();
 
@@ -48,17 +27,24 @@ namespace News.Controllers
             return PartialView("_Articles");
         }
         
-        public IActionResult getFilteredGenres(int websiteId)
+        public IActionResult GetFilteredGenres(int websiteId)
         {
-            genres.Clear();
-            
             HttpContext.Session.SetInt32("websiteId", websiteId);
 
-            GenreContext genreContext = HttpContext.RequestServices.GetService(typeof(News.Models.GenreContext)) as GenreContext;
+            GenreContext genreContext = HttpContext.RequestServices.GetService(typeof(GenreContext)) as GenreContext;
 
             ViewData["genres"] = genreContext.ListGenres(websiteId);
 
             return PartialView("_Genres");
+        }
+        [HttpPost]
+        public IActionResult GetArticles(List<int> articleIds)
+        {
+            ArticleContext context = HttpContext.RequestServices.GetService(typeof(ArticleContext)) as ArticleContext;
+
+            var articles = context.GetArticles(articleIds);
+
+            return Ok(articles);
         }
     }
 }

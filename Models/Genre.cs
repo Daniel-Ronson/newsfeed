@@ -9,8 +9,6 @@ namespace News.Models
 {
     public class Genre
     {
-        //private GenreContext context;
-
         [Display(Name = "genreid")]
         public int genreID { get; set; }
 

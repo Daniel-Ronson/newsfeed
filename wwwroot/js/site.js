@@ -1,19 +1,80 @@
 ﻿let CARD_CONTAINER_SELECTOR = '#articles';
 let GENRE_CONTAINER_SELECTOR = '#genres';
 let WEBSITE_CONTAINER_SELECTOR = ".website-container";
-let ARTICLE_SELECTOR = '.card, .mb-3';
+let FOCUS_SWITCH_SELECTOR = "#focus-switch";
+let FOCUS_CONTAINER_SELECTOR = '#focus-container';
+let THEME_SWITCH_SELECTOR = '#theme-switch';
+
+let App = window.App;
+let FormHandler = App.FormHandler;
+let LOGIN_FORM = new FormHandler(LOGIN_FORM_SELECTOR);
+let SIGNUP_FORM = new FormHandler(SIGNUP_FORM_SELECTOR);
+
 let loginModal = $('#login-modal');
 
 $('#settings_dropdown').click(function (e) {
    // e.preventDefault();
     e.stopPropagation();
 });
+
 $(function () {
     $(FAVOURITES_TOGGLE_SELECTOR).click(function () {
         toggleFavourites();
-    })
+    });
+  
+    LOGIN_FORM.addSubmitHandler(authUser);
+    SIGNUP_FORM.addSubmitHandler(registerUser);
+
+    loginModal.on('show.bs.modal', function (e) {
+        console.log('test');
+        responseText("");
+    });
+
+    $(FOCUS_SWITCH_SELECTOR).bootstrapSwitch();
+    $(FOCUS_SWITCH_SELECTOR).bootstrapSwitch('onSwitchChange', function (e, data) {
+        toggleFocusMode(data);
+    });
+    
+    $(THEME_SWITCH_SELECTOR).bootstrapSwitch();
+    $(THEME_SWITCH_SELECTOR).bootstrapSwitch('onText', 'Dark');
+    $(THEME_SWITCH_SELECTOR).bootstrapSwitch('offText', 'Light');
+    $(THEME_SWITCH_SELECTOR).bootstrapSwitch('onSwitchChange', function (e, data) {
+        toggleTheme(data);
+    });
+    
 });
 
+function toggleFocusMode(data) {
+    if (data) {
+        $(FOCUS_CONTAINER_SELECTOR).fadeOut();
+    } else {
+        $(FOCUS_CONTAINER_SELECTOR).fadeIn();
+    }
+}
+
+function toggleTheme(data) {
+    if (data) {
+        document.documentElement.style.setProperty('--color-wet-asphalt', '#34495E');
+        document.documentElement.style.setProperty('--color-midnight-blue', '#2C3E50');
+        document.documentElement.style.setProperty('--color-turquoise', '#1ABC9C');
+        document.documentElement.style.setProperty('--color-green-sea', '#16A085');
+        document.documentElement.style.setProperty('--color-peter-river', '#3498DB');
+        document.documentElement.style.setProperty('--color-belize-hole', '#2980B9');
+        document.documentElement.style.setProperty('--color-dark-gray', '#6c757d');
+        $(EMAIL_SELECTOR).attr('style', 'color: lightgray;')
+
+    } else {
+        document.documentElement.style.setProperty('--color-wet-asphalt', '#ECF0F1');
+        document.documentElement.style.setProperty('--color-midnight-blue', '#BDC3C7');
+        document.documentElement.style.setProperty('--color-turquoise', '#F1C40F');
+        document.documentElement.style.setProperty('--color-green-sea', '#F39C12');
+        document.documentElement.style.setProperty('--color-peter-river', '#E67E22');
+        document.documentElement.style.setProperty('--color-belize-hole', '#D35400');
+        document.documentElement.style.setProperty('--color-dark-gray', '#a3a7ab');
+        $(EMAIL_SELECTOR).attr('style', 'color: gray;')
+
+    }
+}
 
 /**
  * Handles clicks on genres. Adds visual cue of selected state and filters genres.
@@ -45,7 +106,7 @@ function websiteClick(element) {
     target.addClass("selected");
 
     $.ajax({
-        url: 'filter/getFilteredArticles',
+        url: 'Filter/GetFilteredArticles',
         data: {websiteId: id},
         success: (function (data) {
             refreshCards(data);
@@ -53,7 +114,7 @@ function websiteClick(element) {
         })
     });
     $.ajax({
-        url: 'filter/getFilteredGenres',
+        url: 'Filter/GetFilteredGenres',
         data: {websiteId: id},
         success: (data => refreshGenres(data))
     });

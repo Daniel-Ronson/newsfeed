@@ -2,10 +2,41 @@
 let FAVOURITES_TOGGLE_SELECTOR = "#toggleFav";
 
 let favourites = [];
-let degrees = 0;
+let degrees = 0; // Keeps track of list-icon rotation
 
 function getUserFavourites(userId) {
-    // TODO : Get user's favourites
+    $.ajax({
+        type: 'POST',
+        url: 'User/GetFavourites',
+        data: { userId: userId },
+        success: function(articleIds) {
+            if (articleIds) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'Filter/GetArticles',
+                    data: {articleIds: articleIds},
+                    success: function(articles) {
+                        for (let i in articles) {
+                            let article = articles[i];
+                            if (!favourites.includes(article.id)) {
+                                favourites.push(article.id);
+                                addFavouriteElement(article.id, article.title, article.websiteName, article.websiteUrl);
+                            }
+                        }
+                    },
+                    error: function() {
+                        alert("Cannot get favourite articles");
+                    }
+                })
+               
+            } else {
+                alert("Cannot get user favourites");
+            }
+        },
+        error:function(){
+            alert("Cannot find favourites");
+        }
+    });
 }
 
 function toggleFavourites(icon) {
@@ -31,6 +62,11 @@ function toggleIconSelected(id) {
 }
 
 function toggleFavourite(id) {
+    if (!userLoggedIn) {
+        alert('You need to be logged in to add favourites');
+        return;
+    }
+    
     let icon = $('#' + id).children('.row').children().children('.fav-icon');
     if (icon.hasClass('icon-selected')) {
         removeFavourite(id);
@@ -45,14 +81,67 @@ function addFavourite(id) {
     } else {
         return;
     }
-    
+
+    $.ajax({
+        type: 'POST',
+        url: 'User/AddFavourite',
+        data: { userId: userId, articleId: id },
+        success: function(data) {
+            if (data) {
+                let [title, website, url] = getArticleData(id);
+                addFavouriteElement(id, title, website, url);
+            } else {
+                alert("Cannot add favourite");
+            }
+        },
+        error:function(){
+            alert("Cannot add favourite");
+        }
+    });
+
+}
+
+function removeFavourite(id) {
+    $.ajax({
+        type: 'POST',
+        url: 'User/RemoveFavourite',
+        data: { userId: userId, articleId: id },
+        success:function(data) {
+            if (data) {
+                if (favourites.includes(id)) {
+                    favourites = favourites.filter(function (value, index, arr) {
+                        return value !== id;
+                    })
+                }
+
+                toggleIconSelected(id);
+
+                let item = $(`[data-id="${id}"]`);
+                item.fadeOut(250, function () {
+                    this.remove();
+                });
+            } else {
+                alert("Cannot remove favourite");
+            }
+        },
+        error:function(){
+            alert("Cannot remove favourite");
+        }
+    });
+
+}   
+
+function getArticleData(id) {
     let body = $('#' + id).children('.row').children();
     let title = body.children('a').children().text();
     let website = body.children('.card-subtitle').text();
     let url = body.children('a').attr('href');
+    return [title, website, url];
+}
 
+function addFavouriteElement(id, title, website, url) {
     toggleIconSelected(id);
-    
+
     let li = $('<li></li>', {
         'class': 'todo-done',
         'data-id': id
@@ -77,23 +166,8 @@ function addFavourite(id) {
     content.append(website);
     li.append(icon);
     li.append(content);
-    
+
     li.hide();
     li.fadeIn(150);
     $(FAVOURITES_SELECTOR + ' ul').append(li);
 }
-
-function removeFavourite(id) {
-    if (favourites.includes(id)) {
-        favourites = favourites.filter(function (value, index, arr) {
-            return value !== id;
-        })
-    }
-    
-    toggleIconSelected(id);
-    
-    let item = $(`[data-id="${id}"]`);
-    item.fadeOut(250, function () {
-        this.remove();
-    });
-}   
