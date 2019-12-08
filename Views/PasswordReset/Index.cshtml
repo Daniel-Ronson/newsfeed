@@ -1,23 +1,17 @@
-﻿@model News.Models.User
-@{
-    var user = ViewData["user"] as User; //ViewData loosly type and dynamic at runtime
+﻿<div class="reset-page">
+    <h1>Forgot your password?</h1>
+    <p>Enter the email you registered with: </p>
+    <form class="input-group mt-3">
+        <input type="text" class="form-control" name="email" placeholder="Enter your email">
+        <div class="input-group-append">
+            <button class="btn btn-secondary submit-button" type="submit">Submit</button>
+          </div>
+    </form>
 
-}
-<h1>Profile Page</h1>
-    <div class="d-flex flex-column bd-highlight mb-3">
-        <p class="text-success">UserName: @user.Username</p>
-        <p class="text-success">email: @Model.Email</p>
-        <p class="text-success">id: @Model.UserId</p>
-        <input type="button" value="Favorites" />
-    </div>
-
-<div class="d-flex flex-column bd-highlight mb-3">
-    <div class="p-2 bd-highlight">Flex item 1</div>
-    <div class="p-2 bd-highlight">Flex item 2</div>
-    <div class="p-2 bd-highlight">Flex item 3</div>
 </div>
 
+<link href="~/css/password-reset.css" rel="stylesheet"/>
+<link href="~/css/site.css" rel="stylesheet">
 
-
-
-
+<script src="~/js/formhandler.js"></script> 
+<script src="~/js/password-reset.js"></script> 
