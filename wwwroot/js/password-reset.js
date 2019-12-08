@@ -12,6 +12,13 @@ function sendEmail(data) {
     $.ajax({
         type: 'POST',
         url: '/PasswordReset/SendEmail',
-        data: {email: data.email}
+        data: {email: data.email},
+        success: function(data) {
+            if (data) {
+                alert('Successfully sent email');
+            } else {
+                alert('Email not recognized');
+            }
+        }
     })
 }

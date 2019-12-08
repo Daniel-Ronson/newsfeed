@@ -213,6 +213,30 @@ INSERT INTO `user` VALUES (5,'dron','1a1dc91c907325c69271ddf0c944bc72','dannyron
 UNLOCK TABLES;
 
 --
+-- Table structure for table `user_password_reset`
+--
+
+DROP TABLE IF EXISTS `user_password_reset`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user_password_reset` (
+  `userId` int(11) NOT NULL,
+  `resetKey` varchar(45) NOT NULL,
+  PRIMARY KEY (`userId`,`resetKey`),
+  CONSTRAINT `FK_user_password_reset_user` FOREIGN KEY (`userId`) REFERENCES `user` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_password_reset`
+--
+
+LOCK TABLES `user_password_reset` WRITE;
+/*!40000 ALTER TABLE `user_password_reset` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_password_reset` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `website`
 --
 
@@ -251,7 +275,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=current_user PROCEDURE `getArticles`(IN websiteId int)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getArticles`(IN websiteId int)
 BEGIN
 SELECT a.articleId, title, a.url as websiteUrl, w.url as publisherUrl, date, websiteName, a.description FROM article a 
 INNER JOIN website w ON a.websiteid=w.websiteid WHERE a.websiteid=websiteId;
@@ -271,7 +295,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=current_user PROCEDURE `getGenres`(In articleId int)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getGenres`(In articleId int)
 BEGIN
 SELECT a.articleId, g.genre FROM article a JOIN genre g ON a.genreid = g.genreid where a.articleId = articleId;
 END ;;
@@ -290,4 +314,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-08  0:37:16
+-- Dump completed on 2019-12-08  1:15:53

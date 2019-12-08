@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Session;
+using News.DAL;
 using News.Models;
 using Org.BouncyCastle.Crypto.Digests;
 
