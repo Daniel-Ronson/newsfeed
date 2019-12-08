@@ -16,7 +16,7 @@
 --
 -- Table structure for table `article`
 --
-
+use news;
 DROP TABLE IF EXISTS `article`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
@@ -236,12 +236,34 @@ INSERT INTO `website` (`websiteid`, `websitename`, `url`) VALUES (1,'CNN','http:
 /*!40000 ALTER TABLE `website` ENABLE KEYS */;
 UNLOCK TABLES;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+
+/*Stored Procedures */
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getArticles`(IN websiteId int,In ArticleDateRange datetime)
+USE `news`;
+DROP procedure IF EXISTS `getArticles`;
+
+DELIMITER $$
+USE `news`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getArticles`(IN websiteId int,In ArticleDateRange datetime)
+BEGIN
+SELECT a.articleId, title, a.url as websiteUrl, w.url as publisherUrl, date, websiteName, a.description FROM article a 
+INNER JOIN website w ON a.websiteid=w.websiteid WHERE a.websiteid=websiteId AND a.date > ArticleDateRange;
+END$$
+
+DELIMITER ;
+USE `news`;
+DROP procedure IF EXISTS `getGenres`;
+
+DELIMITER $$
+USE `news`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getGenres`(In articleId int)
+BEGIN
+SELECT a.articleId, g.genre FROM article a JOIN genre g ON a.genreid = g.genreid where a.articleId = articleId;
+END$$
+
+DELIMITER ;
+
+
 
 -- Dump completed on 2019-12-07 22:52:02
