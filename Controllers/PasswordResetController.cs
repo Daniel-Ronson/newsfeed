@@ -79,7 +79,7 @@ namespace News.Controllers
             body += "<p>Thanks, </p></br><p>The Outright News team</p>";
             
             var fromAddress = new MailAddress("outrightnews.csuf@gmail.com", "Outright News");
-            var toAddress = new MailAddress("moe.simon@gmail.com", $"To {username}");
+            var toAddress = new MailAddress(email, $"To {username}");
             const string fromPassword = "Outright123";
 
             var smtp = new SmtpClient
