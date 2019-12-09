@@ -17,6 +17,11 @@ body {
     background-color: var(--color-wet-asphalt);
 }
 
+.title {
+    margin-top: .5rem;
+    color: var(--color-light-gray);
+}
+
 /* DROPDOWN */
 .dropdown-menu {
     padding: 0.3rem 0.5rem;

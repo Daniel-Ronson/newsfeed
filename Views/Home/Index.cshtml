@@ -1,6 +1,7 @@
 ﻿@model News.Models.LoginRegisterForm
 <nav class="navbar navbar-inverse navbar-embossed navbar-expand-lg 
             d-flex flex-row justify-content-between align-items-center" role="navigation">
+    <h3 class="title">Outright News</h3>
     <div class="email-text" id="email"></div>
     <div class="d-flex justify-content-between mr-2">
         <div class="dropdown">
@@ -75,7 +76,7 @@
         <div class="todo-search w-100">
             <input id="article-search-field" class="todo-search-field" type="search" oninput="searchArticles(this)" placeholder="Search Articles">
         </div>
-        <div id="articles" class="article-container">
+        <div id="articles" class="article-container" >
             @Html.Partial("_Articles")
         </div>
     </div>
