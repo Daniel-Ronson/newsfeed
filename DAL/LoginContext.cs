@@ -10,7 +10,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web.Mvc;
 
-namespace News.DAL
+namespace News.Models
 {
     public class LoginContext : DbContext
     {
@@ -164,37 +164,6 @@ namespace News.DAL
             }
 
 
-        }
-
-        public bool changePassword(string password, int userId)
-        {
-            bool success;
-            using (MySqlConnection conn = getConnection())
-            {
-                string sql = $"UPDATE user SET password = '{password}' WHERE userId = {userId}";
-
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
-                conn.Open();
-
-                try
-                {
-                    if (cmd.ExecuteNonQuery() > 0)
-                    {
-                        success =  true;
-                    }
-                    else
-                    {
-                        success = false;
-                    }
-
-                }
-                catch
-                {
-                    success = false;
-                }
-                conn.Close();
-                return success;
-            }
         }
     }
 }
