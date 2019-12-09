@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using News.DAL;
 using News.Models;
 
 namespace News.Controllers

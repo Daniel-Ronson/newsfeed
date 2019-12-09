@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using News.Models;
 
-namespace News.Models
+namespace News.DAL
 {
     public class GenreContext
     {

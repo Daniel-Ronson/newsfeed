@@ -3,9 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using News.Models;
 
 
-namespace News.Models
+namespace News.DAL
 {
     public class UserContext
     {

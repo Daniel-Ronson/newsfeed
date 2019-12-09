@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using News.DAL;
 using News.Models;
 
 namespace News.Controllers
@@ -32,7 +33,7 @@ namespace News.Controllers
         public IActionResult HandleRegister(LoginRegisterForm model)
         {
             
-            LoginContext context = HttpContext.RequestServices.GetService(typeof(News.Models.LoginContext)) as LoginContext;
+            LoginContext context = HttpContext.RequestServices.GetService(typeof(LoginContext)) as LoginContext;
         
             if (model.RegisterPassword != model.RegisterPasswordCheck)
             {
@@ -52,6 +53,15 @@ namespace News.Controllers
             SetCookie(userId, context);
 
             return Content($"{result}");
+        }
+
+        [HttpPost]
+        public IActionResult ChangePassword(string password, int userId)
+        {
+            LoginContext context = HttpContext.RequestServices.GetService(typeof(LoginContext)) as LoginContext;
+            string hashed = Hashing(password);
+            
+            return Ok(context.changePassword(hashed, userId));
         }
 
         private string Hashing(string password)
@@ -85,19 +95,15 @@ namespace News.Controllers
         private void SetCookie(int userId, LoginContext context)
         {
             var sessionId = Guid.NewGuid().ToString();
-            SetCookie(sessionId);
-            context.AddSession(userId, sessionId);
-        }
-
-        public void SetCookie(string sessionId)
-        {
+            
             CookieOptions cookieOptions = new CookieOptions
             {
                 Expires = new DateTimeOffset(DateTime.Now.AddDays(1))
             };
             HttpContext.Response.Cookies.Append("date_of_creation", DateTime.Now.ToString(), cookieOptions); //set cookie
             HttpContext.Response.Cookies.Append("session_id", sessionId, cookieOptions); //set cookie
-
+            
+            context.AddSession(userId, sessionId);
         }
 
     }

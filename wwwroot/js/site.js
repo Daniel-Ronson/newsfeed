@@ -1,4 +1,4 @@
-﻿let CARD_CONTAINER_SELECTOR = '#articles';
+﻿let ARTICLE_CONTAINER_SELECTOR = '#articles';
 let GENRE_CONTAINER_SELECTOR = '#genres';
 let WEBSITE_CONTAINER_SELECTOR = ".website-container";
 let FOCUS_SWITCH_SELECTOR = "#focus-switch";
@@ -30,7 +30,7 @@ $(function () {
         console.log('test');
         responseText("");
     });
-
+    
     $(FOCUS_SWITCH_SELECTOR).bootstrapSwitch();
     $(FOCUS_SWITCH_SELECTOR).bootstrapSwitch('onSwitchChange', function (e, data) {
         toggleFocusMode(data);
@@ -43,7 +43,16 @@ $(function () {
         toggleTheme(data);
     });
     
+    $(ARTICLE_CONTAINER_SELECTOR).scroll(handleScroll);
+    
 });
+
+handleScroll = (e) => {
+    const bottom = e.target.scrollHeight - e.target.scrollTop <= e.target.clientHeight;
+    if (bottom) {
+        console.log('header bottom reached');
+    }
+};
 
 function checkCookie() {
     $.ajax({
@@ -155,7 +164,7 @@ function websiteClick(element) {
  * @param data {string} HTML formatted article data
  */
 function refreshCards(data) {
-    let cardview = $(CARD_CONTAINER_SELECTOR);
+    let cardview = $(ARTICLE_CONTAINER_SELECTOR);
     cardview.empty();
     cardview.append(data);
 }

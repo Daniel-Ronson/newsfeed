@@ -159,7 +159,16 @@ function addFavouriteElement(id, title, website, url) {
     let name = $('<h4></h4>',
         {'class': 'todo-name text-ellipsis'}
     );
-    name.append(title);
+    
+    let tooltip = $('<a></a>',
+        {'class': '',
+        'href': '#',
+        'data-toggle' : 'tooltip',
+        'title': title}
+    );
+
+    tooltip.append(title);
+    name.append(tooltip);
     content.append(name);
     content.append(website);
     li.append(icon);
