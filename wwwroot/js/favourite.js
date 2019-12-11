@@ -162,7 +162,7 @@ function addFavouriteElement(id, title, website, url) {
     
     let tooltip = $('<a></a>',
         {'class': '',
-        'href': '#',
+        // 'href': '#',
         'data-toggle' : 'tooltip',
         'title': title}
     );

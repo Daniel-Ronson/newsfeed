@@ -4,6 +4,7 @@ let WEBSITE_CONTAINER_SELECTOR = ".website-container";
 let FOCUS_SWITCH_SELECTOR = "#focus-switch";
 let FOCUS_CONTAINER_SELECTOR = '#focus-container';
 let THEME_SWITCH_SELECTOR = '#theme-switch';
+let TITLE_SELECTOR = '.title';
 
 let App = window.App;
 let FormHandler = App.FormHandler;
@@ -99,7 +100,8 @@ function toggleTheme(data) {
         document.documentElement.style.setProperty('--color-peter-river', '#3498DB');
         document.documentElement.style.setProperty('--color-belize-hole', '#2980B9');
         document.documentElement.style.setProperty('--color-dark-gray', '#6c757d');
-        $(EMAIL_SELECTOR).attr('style', 'color: lightgray;')
+        $(EMAIL_SELECTOR).attr('style', 'color: lightgray;');
+        $(TITLE_SELECTOR).attr('style', 'color: var(--color-light-gray);');
 
     } else {
         document.documentElement.style.setProperty('--color-wet-asphalt', '#ECF0F1');
@@ -109,7 +111,8 @@ function toggleTheme(data) {
         document.documentElement.style.setProperty('--color-peter-river', '#E67E22');
         document.documentElement.style.setProperty('--color-belize-hole', '#D35400');
         document.documentElement.style.setProperty('--color-dark-gray', '#a3a7ab');
-        $(EMAIL_SELECTOR).attr('style', 'color: gray;')
+        $(EMAIL_SELECTOR).attr('style', 'color: var(--color-wet-asphalt);');
+        $(TITLE_SELECTOR).attr('style', 'color: var(--color-wet-asphalt);');
 
     }
 }

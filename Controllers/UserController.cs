@@ -37,7 +37,5 @@ namespace News.Controllers
             UserContext context = HttpContext.RequestServices.GetService(typeof(UserContext)) as UserContext;
             return Ok(context.GetUser(userId));
         }
-        
-        
     }
 }

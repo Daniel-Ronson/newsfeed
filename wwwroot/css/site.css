@@ -19,6 +19,7 @@ body {
 
 .title {
     margin-top: .5rem;
+    margin-left: 1rem;
     color: var(--color-light-gray);
 }
 
@@ -65,7 +66,7 @@ body {
 /* GENRES */
 .genre-container {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     overflow-x: auto;
     overflow-y: hidden;
