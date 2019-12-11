@@ -121,26 +121,11 @@ namespace News.DAL
                 while (rdr.Read())
                 {                    
                     userId = Convert.ToInt32(rdr["userid"]);
-                }                
+                }
                 conn.Close();
             }
 
             return userId;
-        }
-
-        public bool checkConnection()
-        {
-            MySqlConnection con = getConnection();
-            try
-            {
-                con.Open();
-                con.Close();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
         }
     }
 }

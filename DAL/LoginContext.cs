@@ -138,34 +138,6 @@ namespace News.DAL
                 return "";
             }
         }
-        public string AddSession(int userid, string sessionid)
-        {
-            using (MySqlConnection conn = getConnection())
-            {
-                string returnVal;
-                string format = "yyyy-MM-dd HH:mm:ss";
-                string date = DateTime.Now.ToString(format);
-                string sql = $"REPLACE INTO session(userid, sessionid, date) VALUES({userid},'{sessionid}','{date}')";
-
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
-                conn.Open();
-
-                try
-                {
-                    cmd.ExecuteNonQuery();
-                    returnVal = "Success";
-                }
-                catch
-                {
-                    returnVal = "There is an existing session";
-                }
-                conn.Close();
-                return returnVal;
-            }
-
-
-        }
-
         public bool changePassword(string password, int userId)
         {
             bool success;

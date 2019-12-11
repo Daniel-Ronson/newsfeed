@@ -25,7 +25,7 @@ namespace News.Controllers
             {
                 return Content("User not found or password is incorrect");
             }
-            SetCookie(userId, context);
+            SetCookie(userId);
             return Content("");
         }
 
@@ -50,7 +50,7 @@ namespace News.Controllers
                 model.RegisterPasswordCheck);
             
             int userId = context.CheckCredentials(model.RegisterEmail, model.RegisterPassword);
-            SetCookie(userId, context);
+            SetCookie(userId);
 
             return Content($"{result}");
         }
@@ -92,10 +92,11 @@ namespace News.Controllers
             return sBuilder.ToString();
         }
 
-        private void SetCookie(int userId, LoginContext context)
+        private void SetCookie(int userId)
         {
             var sessionId = Guid.NewGuid().ToString();
-            
+            CookiesContext context = HttpContext.RequestServices.GetService(typeof(CookiesContext)) as CookiesContext;
+
             CookieOptions cookieOptions = new CookieOptions
             {
                 Expires = new DateTimeOffset(DateTime.Now.AddDays(1))

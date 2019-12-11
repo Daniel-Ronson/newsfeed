@@ -20,9 +20,6 @@ namespace News.DAL
             return new MySqlConnection(ConnectionString);
         }
 
-        //check if session id is in the database
-        //return UserId that is related to the sesion id
-        //return 0 if the sesion id is not valid
         public int GetSession(string sessionId)
         {
             int userId;
@@ -54,6 +51,32 @@ namespace News.DAL
                 conn.Open();
                 cmd.ExecuteNonQuery();
                 conn.Close();
+            }
+        }
+        
+        public string AddSession(int userid, string sessionid)
+        {
+            using (MySqlConnection conn = getConnection())
+            {
+                string returnVal;
+                string format = "yyyy-MM-dd HH:mm:ss";
+                string date = DateTime.Now.ToString(format);
+                string sql = $"REPLACE INTO session(userid, sessionid, date) VALUES({userid},'{sessionid}','{date}')";
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                conn.Open();
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    returnVal = "Success";
+                }
+                catch
+                {
+                    returnVal = "There is an existing session";
+                }
+                conn.Close();
+                return returnVal;
             }
         }
     }
