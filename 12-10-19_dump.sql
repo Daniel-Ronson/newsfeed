@@ -3,7 +3,7 @@
 -- Host: localhost    Database: news
 -- ------------------------------------------------------
 -- Server version	8.0.15
-
+use news;
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -251,11 +251,9 @@ CREATE TABLE `user_password_reset` (
 
 /*Stored Procedures */
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getArticles`(IN websiteId int,In ArticleDateRange datetime)
-USE `news`;
 DROP procedure IF EXISTS `getArticles`;
 
 DELIMITER $$
-USE `news`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getArticles`(IN websiteId int,In ArticleDateRange datetime)
 BEGIN
 SELECT a.articleId, title, a.url as websiteUrl, w.url as publisherUrl, date, websiteName, a.description FROM article a 
@@ -263,11 +261,9 @@ INNER JOIN website w ON a.websiteid=w.websiteid WHERE a.websiteid=websiteId AND 
 END$$
 
 DELIMITER ;
-USE `news`;
 DROP procedure IF EXISTS `getGenres`;
 
 DELIMITER $$
-USE `news`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getGenres`(In articleId int)
 BEGIN
 SELECT a.articleId, g.genre FROM article a JOIN genre g ON a.genreid = g.genreid where a.articleId = articleId;
