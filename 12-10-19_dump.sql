@@ -160,15 +160,16 @@ UNLOCK TABLES;
 --
 -- Table structure for table `session`
 --
-
+use news;
 DROP TABLE IF EXISTS `session`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `session` (
   `userid` int(11) NOT NULL,
-  `sessionid` varchar(32) NOT NULL,
+  `sessionid` varchar(36) NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`userid`),
+  unique KEY `uq_sessionid` (`sessionid`),
   CONSTRAINT `session_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -236,6 +237,16 @@ INSERT INTO `website` (`websiteid`, `websitename`, `url`) VALUES (1,'CNN','http:
 /*!40000 ALTER TABLE `website` ENABLE KEYS */;
 UNLOCK TABLES;
 
+DROP TABLE IF EXISTS `user_password_reset`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user_password_reset` (
+  `userId` int(11) NOT NULL,
+  `resetKey` varchar(45) NOT NULL,
+  PRIMARY KEY (`userId`,`resetKey`),
+  CONSTRAINT `FK_user_password_reset_user` FOREIGN KEY (`userId`) REFERENCES `user` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 
 /*Stored Procedures */
