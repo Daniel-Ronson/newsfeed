@@ -51,14 +51,17 @@ namespace News.Models
 
         public List<Article> GetAllArticles(int websiteId = 3)
         {
+            DateTime ArticleDateRange = DateTime.Now.AddDays(-10);
+
             List<Article> articles = new List<Article>();
             using (MySqlConnection con = GetConnection())
             {
                 MySqlCommand cmd = new MySqlCommand("getArticles", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@websiteId", websiteId);
+                cmd.Parameters.AddWithValue("@ArticleDateRange", ArticleDateRange);
                 cmd.Parameters["@websiteId"].Direction = ParameterDirection.Input;
-
+                cmd.Parameters["@ArticleDateRange"].Direction = ParameterDirection.Input;
                 con.Open(); //open db connection
 
                 MySqlDataReader rdr = cmd.ExecuteReader();
